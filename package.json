@@ -1,0 +1,25 @@
+{
+  "name": "tulip-touch-cafe",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "kill -9 $(lsof -t -i:8088 2>/dev/null) 2>/dev/null; npx http-server -p 8088",
+    "dev:next": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "framer-motion": "^11.18.2",
+    "lucide-react": "^0.474.0",
+    "next": "^14.2.23",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.19.43",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "typescript": "5.9.3"
+  }
+}
