@@ -67,7 +67,7 @@ body.flora-theme.paper-texture {
   overflow-x: hidden;
   line-height: 1.6;
   background-color: #f0e7d5;
-  background-image: 
+  background-image:
     radial-gradient(ellipse at 50% 50%, rgba(255, 252, 243, 0.8) 0%, rgba(235, 224, 205, 0.9) 100%),
     url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperFeltNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.15'/%3E%3CfeFuncG type='linear' slope='0.15'/%3E%3CfeFuncB type='linear' slope='0.15'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperFeltNoise)' opacity='0.15'/%3E%3C/svg%3E");
   background-repeat: repeat;
@@ -84,7 +84,7 @@ body::after {
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  background-image: 
+  background-image:
     radial-gradient(circle at 50% 50%, transparent 45%, rgba(18, 14, 10, 0.32) 100%),
     url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='vintageSuperGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23vintageSuperGrain)' opacity='0.35' mix-blend-mode='overlay'/%3E%3C/svg%3E");
   pointer-events: none;
@@ -111,17 +111,17 @@ img {
 }
 
 /* GIF DOODLES & PENCIL LINE: ENLARGED SIZES + ZERO COLOR CHANGE ON HOVER */
-.flower-gif-img, 
-.table-gif-img, 
-.drink-set-gif-img, 
+.flower-gif-img,
+.table-gif-img,
+.drink-set-gif-img,
 .pencil-line-img-full {
   filter: grayscale(100%) sepia(22%) contrast(1.45) brightness(0.85) !important;
   transition: transform 0.3s ease !important;
 }
 
 /* Hovering GIFs does NOT change color */
-.flower-gif-img:hover, 
-.table-gif-img:hover, 
+.flower-gif-img:hover,
+.table-gif-img:hover,
 .drink-set-gif-img:hover {
   filter: grayscale(100%) sepia(22%) contrast(1.45) brightness(0.85) !important;
   transform: scale(1.04);
@@ -271,12 +271,9 @@ img {
   width: 100%;
 }
 
-/* NAVBAR FIXED TO STARTING PAGE ONLY (NATURAL DOCUMENT FLOW - NO OVERLAP) */
+/* NAVBAR REMOVED PER USER SPECIFICATION */
 .navbar {
-  position: relative;
-  z-index: 50;
-  background-color: transparent;
-  padding: 0.5rem 0;
+  display: none !important;
 }
 
 .nav-container {
@@ -419,11 +416,12 @@ img {
   position: relative;
 }
 
-/* REACT BITS SCROLL-EXPAND OPENING COMPONENT STYLING */
+/* 2.5D HERO CINEMATIC CAMERA SCROLL STYLING */
 .scroll-expand {
   position: relative;
   width: 100%;
-  height: 220vh; /* Scroll track height for pinning expansion */
+  height: 300vh;
+  /* Cinematic 300vh scroll sequence */
 }
 
 .scroll-expand__track {
@@ -436,7 +434,8 @@ img {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100vh; /* Pinned full viewport height */
+  height: 100vh;
+  /* Pinned full viewport height */
   overflow: hidden;
   border-radius: 0px;
 }
@@ -444,9 +443,7 @@ img {
 .scroll-expand__frame {
   position: absolute;
   inset: 0;
-  clip-path: inset(18% 28% 18% 28% round 24px);
-  will-change: clip-path;
-  transition: clip-path 0.05s linear;
+  clip-path: none !important;
 }
 
 .scroll-expand__media {
@@ -1045,7 +1042,9 @@ img {
 }
 
 /* Visit Section - Royal Wooden Framed Golden Parchment Map (Middle-Earth Style) */
-.visit-section { background-color: transparent; }
+.visit-section {
+  background-color: transparent;
+}
 
 .visit-grid-full {
   width: 100%;
@@ -1059,10 +1058,10 @@ img {
   width: 100%;
   padding: 16px;
   background-color: #b88a4c;
-  background-image: 
+  background-image:
     linear-gradient(135deg, #966b36 0%, #bd8e50 25%, #7a5024 50%, #aa7a3e 75%, #663f18 100%);
   border: 18px solid #a67c52;
-  box-shadow: 
+  box-shadow:
     inset 0 0 0 3px #42280d,
     inset 0 0 0 6px #d9b275 !important;
   transform: none;
@@ -1116,10 +1115,10 @@ img {
   margin-top: 0.15rem;
 }
 
-.visit-map { 
+.visit-map {
   position: relative;
-  width: 100%; 
-  height: 520px; 
+  width: 100%;
+  height: 520px;
   border: 2px solid #4a3014;
   overflow: hidden;
 }
@@ -1137,7 +1136,7 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: 
+  background-image:
     radial-gradient(circle at 50% 50%, transparent 20%, rgba(105, 68, 22, 0.55) 75%, rgba(45, 25, 5, 0.85) 100%),
     url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='goldenMapNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23goldenMapNoise)' opacity='0.38' mix-blend-mode='overlay'/%3E%3C/svg%3E");
   pointer-events: none;
@@ -1402,4 +1401,98 @@ img {
     writing-mode: horizontal-tb !important;
     transform: none !important;
   }
+}
+
+/* 2.5D HERO FULL-BLEED COMPOSITION & CAMERA SYSTEM */
+.scroll-expand__parallax {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #3ca0ea;
+  isolation: isolate;
+  user-select: none;
+}
+
+.scroll-expand__parallax img,
+.se-bg-layer,
+.se-building-img,
+.se-fg-img {
+  filter: none !important;
+  transition: none !important;
+  cursor: default !important;
+  user-select: none;
+}
+
+/* 1. Background Sky Layer */
+.se-bg-layer {
+  position: absolute;
+  inset: -6% -2% 0 -2%;
+  width: 104%;
+  height: 112%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
+  pointer-events: none;
+  display: block !important;
+  will-change: transform;
+}
+
+/* 2. Hero Building Layer (Step 1: Centered, Reduced 35%, Exact Stop Zoom) */
+.se-building-wrap {
+  position: absolute;
+  left: 50%;
+  top: 10vh;
+  transform: translate3d(-50%, 0, 0);
+  transform-origin: 50% 89.65%;
+  width: min(65vw, calc(70vh * 1.5));
+  height: min(70vh, calc(65vw / 1.5));
+  aspect-ratio: 1536 / 1024;
+  z-index: 2;
+  pointer-events: none;
+  display: block !important;
+  will-change: transform;
+}
+
+.se-building-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  filter: none !important;
+  transition: none !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.se-fg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
+  transform: translate3d(0, calc(33.2% - 59px), 0);
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+  filter: none !important;
+  transition: none !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.scroll-expand__scrim {
+  display: none !important;
+}
+
+.scroll-expand__title,
+.scroll-expand__hint {
+  display: none !important;
 }

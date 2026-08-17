@@ -1,0 +1,234 @@
+.experience {
+  position: relative;
+  height: 400vh;
+  background-color: #ffffff;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #ffffff;
+}
+
+/* Single Viewport Camera Container (1400x933 Canvas) */
+.camera {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1400px;
+  height: 933px;
+  transform-origin: 50% 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+/* 1. HERO BG (Sky) - z-index: 1 */
+.bg {
+  position: absolute;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  z-index: 1;
+  filter: grayscale(100%);
+  will-change: transform;
+}
+
+/* 2. HERO BUILDING - z-index: 20 */
+.building {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  pointer-events: none;
+  filter: grayscale(100%);
+  will-change: transform;
+}
+
+/* 3. HERO EMBLEM - z-index: 30 */
+.emblem {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  width: 140px;
+  height: auto;
+  transform: translate(-50%, 0);
+  z-index: 30;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.emblem img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 4. HERO FOREGROUND - z-index: 40 */
+.foreground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 40;
+  pointer-events: none;
+  /* Preserve red feature carpet/store element as deliberate accent */
+  filter: grayscale(70%) contrast(1.05);
+  will-change: transform;
+}
+
+/* Monochrome Vignette - z-index: 80 */
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 40%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+/* Minimal Introductory Text - z-index: 100 */
+.copy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  color: #121212;
+  z-index: 100;
+  will-change: transform, opacity;
+}
+
+.eyebrow {
+  font-family: var(--font-mono, 'DM Mono', monospace), monospace;
+  letter-spacing: 0.35em;
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+  text-transform: uppercase;
+  color: #555555;
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif), serif;
+  font-size: clamp(1.6rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #121212;
+  margin: 0;
+}
+
+.sub {
+  font-family: var(--font-mono, 'DM Mono', monospace), monospace;
+  font-size: clamp(0.7rem, 1vw, 0.82rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #444444;
+  margin-top: 1.5rem;
+}
+
+/* Scroll Indicator - z-index: 100 */
+.scrollCue {
+  position: absolute;
+  bottom: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #121212;
+  font-family: var(--font-mono, 'DM Mono', monospace), monospace;
+  pointer-events: none;
+  z-index: 100;
+  will-change: opacity;
+}
+
+.scrollCue span.line {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, #121212, transparent);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* Phase 5: White Fade Screen Overlay - z-index: 200 */
+.whiteOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  background-color: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* Phase 5: Final Logo Reveal - z-index: 300 */
+.finalLogo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.finalLogoImg {
+  width: 140px;
+  height: auto;
+  display: block;
+}
+
+.finalLogoText {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif), serif;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #121212;
+}
+
+.finalLogoSub {
+  font-family: var(--font-mono, 'DM Mono', monospace), monospace;
+  font-size: clamp(0.65rem, 1vw, 0.75rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #666666;
+}
+
+@media (max-width: 768px) {
+  .title {
+    letter-spacing: 0.15em;
+  }
+  .eyebrow, .sub {
+    letter-spacing: 0.2em;
+  }
+}

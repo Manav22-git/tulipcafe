@@ -4,12 +4,12 @@ High-fidelity Next.js + React + TypeScript website for **The Tulip Touch Café**
 
 ## Features
 - **100% Monochromatic Black & White Baroque Aesthetic**
-- **React Bits `<ScrollExpand />` Pinned Hero Opening**
+- **React Bits `<ScrollExpand />` Sticky Hero Opening**
 - **Hand-Drawn Pencil Line Dividers & Animated GIF Doodles**
 - **Royal Wooden Picture Frame Map with Golden-Yellow Parchment Filter**
 - **Interactive Photography Cards with Glow & Color Restore on Hover**
 - **Direct Instagram Profile Integration**
-
+## hello
 ## Local Development
 ```bash
 # Serve locally
@@ -23,6 +23,7 @@ npm run dev
 ```bash
 npx vercel --prod
 ```
-# repo1
-# tulipcafe
+# tulip
+# cafetul
+# cafetul
 # tulipcafe

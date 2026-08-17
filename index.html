@@ -1,53 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Tulip Touch Café | Black &amp; White Art Café in Vadodara</title>
-  <meta name="description" content="The Tulip Touch Café — Vadodara's premier art café. Indulge in artfully crafted beverages, artisan pasta, craft sandwiches, and desserts in an enchanting black & white baroque setting opposite Galleria Mall, Akota." />
+  <meta name="description"
+    content="The Tulip Touch Café — Vadodara's premier art café. Indulge in artfully crafted beverages, artisan pasta, craft sandwiches, and desserts in an enchanting black & white baroque setting opposite Galleria Mall, Akota." />
   <meta property="og:title" content="The Tulip Touch Café | Monochromatic Art Café in Vadodara" />
   <meta property="og:description" content="Where Art Meets Flavour. Rated 4.5 on Google with 2,043+ reviews." />
   <meta property="og:type" content="website" />
-  
+
   <!-- Preconnect to Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
-  
-  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css?v=25.0_step9_fg_59px_upper" />
+  <style>
+    /* Step 9.5: Centered Building & Foreground Shifted 5px Higher */
+    .se-building-wrap {
+      position: absolute;
+      left: 50%;
+      top: 10vh;
+      transform-origin: 50% 89.65%;
+      width: min(65vw, calc(70vh * 1.5));
+      height: min(70vh, calc(65vw / 1.5));
+      aspect-ratio: 1536 / 1024;
+      z-index: 2;
+      display: block;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .se-building-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: top center;
+      z-index: 1;
+      display: block;
+      pointer-events: none;
+    }
+    .se-fg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: top center;
+      transform: translate3d(0, calc(33.2% - 59px), 0);
+      z-index: 2;
+      display: block;
+      pointer-events: none;
+    }
+  </style>
 </head>
-<body class="flora-theme paper-texture bw-mode">
 
-  <!-- Header Navbar (Positioned at starting page top ONLY) -->
-  <header class="navbar" id="navbar">
-    <div class="nav-container">
-      
-      <!-- Left Logo & Tagline -->
-      <a href="#home" class="nav-brand">
-        <span class="brand-flora-title">The Tulip Touch Café</span>
-        <span class="brand-flora-sub">Where art meets flavour.<br />Vadodara; ESTD 2024</span>
-      </a>
-
-      <!-- Center Links -->
-      <nav class="nav-links">
-        <a href="#menu" class="nav-link">MENU</a>
-        <a href="#about" class="nav-link">STORY</a>
-        <a href="#signature" class="nav-link">SIGNATURES</a>
-        <a href="#gallery" class="nav-link">GALLERY</a>
-        <a href="#visit" class="nav-link">VISIT</a>
-      </nav>
-
-      <!-- Right Actions -->
-      <div class="nav-actions">
-        <a href="#visit" class="nav-link">SEARCH</a>
-        <a href="tel:+919106183731" class="nav-link nav-cart-btn">CALL CAFÉ</a>
-        <button class="hamburger" id="hamburger" aria-label="Toggle Navigation">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-
-    </div>
-  </header>
+<body class="flora-theme paper-texture">
 
   <!-- Mobile Drawer Menu -->
   <div class="mobile-drawer" id="mobileDrawer">
@@ -69,49 +82,52 @@
     </div>
   </div>
 
-  <!-- HERO SECTION -->
-  <section class="hero-flora" id="home">
-    
-    <!-- Hero ScrollExpand Opening Component (React Bits) -->
-    <div class="scroll-expand" id="scrollExpandHero">
-      <div class="scroll-expand__track" id="seTrack">
-        <div class="scroll-expand__stage" id="seStage">
-          <div class="scroll-expand__frame" id="seFrame">
-            <img src="assest/best interior 2.png" alt="The Tulip Touch Café Baroque Interior" class="scroll-expand__media bw-grainy" id="seMedia" />
-            <div class="scroll-expand__scrim" id="seScrim"></div>
+  <!-- Hero 2.5D Cinematic Camera Scroll Component -->
+  <div class="scroll-expand" id="scrollExpandHero">
+    <div class="scroll-expand__track" id="seTrack">
+      <div class="scroll-expand__stage" id="seStage">
+        <div class="scroll-expand__frame" id="seFrame">
+          <div class="scroll-expand__parallax" id="seParallax">
+            <!-- 1. Background Sky Layer -->
+            <img src="assest/hero3d/hero-bg.png"
+              onerror="this.onerror=null; this.src='public/assest/hero3d/hero-bg.png';" alt="Sky Backdrop"
+              class="se-bg-layer" id="seBg" />
+
+            <!-- 2. Hero Building & Foreground Layer (Step 2: Connected Below Building Ending) -->
+            <div class="se-building-wrap" id="seBuildingWrap">
+              <img src="assest/hero3d/hero-building.png"
+                onerror="this.onerror=null; this.src='public/assest/hero3d/hero-building.png';"
+                alt="The Tulip Touch Café Building" class="se-building-img" id="seBuilding" />
+              <img src="assest/hero3d/hero-foreground.png"
+                onerror="this.onerror=null; this.src='public/assest/hero3d/hero-foreground.png';"
+                alt="The Tulip Touch Café Courtyard" class="se-fg-img" id="seFg" />
+            </div>
           </div>
-          
-          <div class="scroll-expand__title" id="seTitle">
-            The Tulip Touch Café
-          </div>
-          
-          <div class="scroll-expand__hint" id="seHint">
-            Scroll to discover ↓
-          </div>
+          <div class="scroll-expand__scrim" id="seScrim"></div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- 2-Column Hero Text Grid below photo -->
-    <div class="container hero-flora-text-grid">
-      <div class="hero-flora-left">
-        <h1 class="hero-flora-heading">
-          More than just your <br />
-          <em>downtown art café</em>
-        </h1>
-      </div>
-
-      <div class="hero-flora-right">
-        <p class="hero-flora-body">
-          The Tulip Touch Café is committed to reimagining your daily ritual through thoughtfully sourced ingredients, mindful preparation, and a welcoming space that inspires balance, connection and well-being.
-        </p>
-        
-        <!-- Black Discover Button -->
-        <a href="#about" class="flora-red-btn">DISCOVER TULIP</a>
-      </div>
+  <!-- 2-Column Hero Text Grid below photo -->
+  <div class="container hero-flora-text-grid">
+    <div class="hero-flora-left">
+      <h1 class="hero-flora-heading">
+        More than just your <br />
+        <em>downtown art café</em>
+      </h1>
     </div>
 
-  </section>
+    <div class="hero-flora-right">
+      <p class="hero-flora-body">
+        The Tulip Touch Café is committed to reimagining your daily ritual through thoughtfully sourced ingredients,
+        mindful preparation, and a welcoming space that inspires balance, connection and well-being.
+      </p>
+
+      <!-- Black Discover Button -->
+      <a href="#about" class="flora-red-btn">DISCOVER TULIP</a>
+    </div>
+  </div>
 
   <!-- PENCIL LINE DIVIDER -->
   <div class="pencil-divider-wrap">
@@ -127,12 +143,13 @@
   <section class="flora-menu-section section-padding" id="menu">
     <div class="container">
       <div class="flora-menu-layout">
-        
+
         <!-- Left Column: Title & Vertical Portrait Image -->
         <div class="flora-menu-left">
           <h2 class="flora-menu-main-title">Explore Our Menu</h2>
           <p class="flora-menu-main-sub">
-            Thoughtfully crafted coffee, ceremonial teas, artisan pastas, and seasonal specials made with intentional ingredients that love you right back.
+            Thoughtfully crafted coffee, ceremonial teas, artisan pastas, and seasonal specials made with intentional
+            ingredients that love you right back.
           </p>
           <div class="flora-menu-img-card">
             <img src="assest/food/food 3.png" alt="Seasonal Pesto Pasta Special" />
@@ -142,7 +159,7 @@
 
         <!-- Right Column: 2-Column Monospaced Menu Grid -->
         <div class="flora-menu-right">
-          
+
           <!-- Category 1: Coffee -->
           <div class="flora-menu-category-block">
             <h3 class="flora-category-italic">Coffee</h3>
@@ -264,7 +281,7 @@
   <section class="flora-articles-section section-padding" id="about">
     <div class="container">
       <div class="flora-articles-grid">
-        
+
         <div class="flora-article-card">
           <div class="flora-article-img">
             <img src="assest/outdoor.png" alt="Our Story" />
@@ -274,7 +291,9 @@
             <span class="flora-article-tag">PROFILE</span>
           </div>
           <p class="flora-article-excerpt">
-            If you&apos;ve ever walked through the gates of The Tulip Touch Café opposite Galleria Mall in Akota, you&apos;ve probably noticed something truly special — a black and white hand-drawn sanctuary designed to evoke artistry and peace.
+            If you&apos;ve ever walked through the gates of The Tulip Touch Café opposite Galleria Mall in Akota,
+            you&apos;ve probably noticed something truly special — a black and white hand-drawn sanctuary designed to
+            evoke artistry and peace.
           </p>
           <a href="#visit" class="flora-read-more-btn">READ MORE</a>
         </div>
@@ -288,7 +307,8 @@
             <span class="flora-article-tag">LIFESTYLE</span>
           </div>
           <p class="flora-article-excerpt">
-            Slow mornings and warm coffee have a way of changing everything. Whether it&apos;s stepping into our hand-drawn booth, taking a few moments over an artisan pesto pasta, or sharing matcha with friends...
+            Slow mornings and warm coffee have a way of changing everything. Whether it&apos;s stepping into our
+            hand-drawn booth, taking a few moments over an artisan pesto pasta, or sharing matcha with friends...
           </p>
           <a href="#visit" class="flora-read-more-btn">READ MORE</a>
         </div>
@@ -319,7 +339,8 @@
               <span class="card-price">₹340</span>
             </div>
             <h3 class="card-title">Signature Pesto Basil Pasta</h3>
-            <p class="card-desc">Rich homemade basil pesto with toasted pine nuts, virgin olive oil, parmesan &amp; grilled garlic crostini.</p>
+            <p class="card-desc">Rich homemade basil pesto with toasted pine nuts, virgin olive oil, parmesan &amp;
+              grilled garlic crostini.</p>
           </div>
         </div>
 
@@ -334,7 +355,8 @@
               <span class="card-price">₹260</span>
             </div>
             <h3 class="card-title">Pistachio Crepe Rolls</h3>
-            <p class="card-desc">Handcrafted delicate crepes filled with pistachio praline cream, topped with chopped nuts &amp; sweet glaze.</p>
+            <p class="card-desc">Handcrafted delicate crepes filled with pistachio praline cream, topped with chopped
+              nuts &amp; sweet glaze.</p>
           </div>
         </div>
 
@@ -349,7 +371,8 @@
               <span class="card-price">₹320</span>
             </div>
             <h3 class="card-title">Chef's Special Shakshuka</h3>
-            <p class="card-desc">Richly spiced tomato and olive ragu infused with Mediterranean herbs, served with sourdough baguette.</p>
+            <p class="card-desc">Richly spiced tomato and olive ragu infused with Mediterranean herbs, served with
+              sourdough baguette.</p>
           </div>
         </div>
       </div>
@@ -372,7 +395,8 @@
       </div>
 
       <div class="gallery-grid">
-        <a href="https://www.instagram.com/thetuliptouchcafe/" target="_blank" rel="noopener noreferrer" class="gallery-item tall">
+        <a href="https://www.instagram.com/thetuliptouchcafe/" target="_blank" rel="noopener noreferrer"
+          class="gallery-item tall">
           <img src="assest/best interior.png" alt="Baroque Main Hall" />
           <div class="gallery-overlay">
             <div class="gallery-insta-center">
@@ -386,7 +410,8 @@
                     <stop offset="90%" stop-color="#285AEB" />
                   </radialGradient>
                 </defs>
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instaGrad1)" stroke-width="2" fill="none" />
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instaGrad1)" stroke-width="2"
+                  fill="none" />
                 <circle cx="12" cy="12" r="4" stroke="url(#instaGrad1)" stroke-width="2" fill="none" />
                 <circle cx="17.5" cy="6.5" r="1.2" fill="url(#instaGrad1)" />
               </svg>
@@ -398,7 +423,8 @@
           </div>
         </a>
 
-        <a href="https://www.instagram.com/thetuliptouchcafe/" target="_blank" rel="noopener noreferrer" class="gallery-item">
+        <a href="https://www.instagram.com/thetuliptouchcafe/" target="_blank" rel="noopener noreferrer"
+          class="gallery-item">
           <img src="assest/food/food 3.png" alt="Pesto Pasta" />
           <div class="gallery-overlay">
             <div class="gallery-insta-center">
@@ -412,7 +438,8 @@
                     <stop offset="90%" stop-color="#285AEB" />
                   </radialGradient>
                 </defs>
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instaGrad2)" stroke-width="2" fill="none" />
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instaGrad2)" stroke-width="2"
+                  fill="none" />
                 <circle cx="12" cy="12" r="4" stroke="url(#instaGrad2)" stroke-width="2" fill="none" />
                 <circle cx="17.5" cy="6.5" r="1.2" fill="url(#instaGrad2)" />
               </svg>
@@ -424,7 +451,8 @@
           </div>
         </a>
 
-        <a href="https://www.instagram.com/thetuliptouchcafe/" target="_blank" rel="noopener noreferrer" class="gallery-item tall">
+        <a href="https://www.instagram.com/thetuliptouchcafe/" target="_blank" rel="noopener noreferrer"
+          class="gallery-item tall">
           <img src="assest/best interior 2.png" alt="Luxury Booth" />
           <div class="gallery-overlay">
             <div class="gallery-insta-center">
@@ -438,7 +466,8 @@
                     <stop offset="90%" stop-color="#285AEB" />
                   </radialGradient>
                 </defs>
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instaGrad3)" stroke-width="2" fill="none" />
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instaGrad3)" stroke-width="2"
+                  fill="none" />
                 <circle cx="12" cy="12" r="4" stroke="url(#instaGrad3)" stroke-width="2" fill="none" />
                 <circle cx="17.5" cy="6.5" r="1.2" fill="url(#instaGrad3)" />
               </svg>
@@ -450,7 +479,8 @@
           </div>
         </a>
 
-        <a href="https://www.instagram.com/thetuliptouchcafe/" target="_blank" rel="noopener noreferrer" class="gallery-item">
+        <a href="https://www.instagram.com/thetuliptouchcafe/" target="_blank" rel="noopener noreferrer"
+          class="gallery-item">
           <img src="assest/food/food1.png" alt="Crepes" />
           <div class="gallery-overlay">
             <div class="gallery-insta-center">
@@ -464,7 +494,8 @@
                     <stop offset="90%" stop-color="#285AEB" />
                   </radialGradient>
                 </defs>
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instaGrad4)" stroke-width="2" fill="none" />
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instaGrad4)" stroke-width="2"
+                  fill="none" />
                 <circle cx="12" cy="12" r="4" stroke="url(#instaGrad4)" stroke-width="2" fill="none" />
                 <circle cx="17.5" cy="6.5" r="1.2" fill="url(#instaGrad4)" />
               </svg>
@@ -478,8 +509,6 @@
       </div>
     </div>
   </section>
-
-
 
   <!-- PENCIL LINE DIVIDER -->
   <div class="pencil-divider-wrap">
@@ -498,29 +527,28 @@
 
       <div class="visit-grid-full">
         <div class="visit-paper-wrapper royal-wooden-frame">
-          
+
           <!-- Middle-Earth Style Nautical Compass Rose SVG (Top Right) -->
           <div class="pirate-compass-rose royal-compass">
             <svg width="85" height="85" viewBox="0 0 100 100" fill="none">
               <circle cx="50" cy="50" r="46" stroke="#4a2e12" stroke-width="1.8" stroke-dasharray="3 3" />
               <polygon points="50,4 58,42 96,50 58,58 50,96 42,58 4,50 42,42" fill="#4a2e12" opacity="0.9" />
               <polygon points="50,16 55,45 84,50 55,55 50,84 45,55 16,50 45,45" fill="#8c2a1c" opacity="0.95" />
-              <text x="50" y="14" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#3d2b1a" font-weight="bold">N</text>
-              <text x="50" y="94" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9" fill="#3d2b1a">S</text>
-              <text x="91" y="53" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9" fill="#3d2b1a">E</text>
-              <text x="9" y="53" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9" fill="#3d2b1a">W</text>
+              <text x="50" y="14" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#3d2b1a"
+                font-weight="bold">N</text>
+              <text x="50" y="94" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9"
+                fill="#3d2b1a">S</text>
+              <text x="91" y="53" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9"
+                fill="#3d2b1a">E</text>
+              <text x="9" y="53" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9"
+                fill="#3d2b1a">W</text>
             </svg>
           </div>
 
           <div class="visit-map">
-            <iframe
-              title="The Tulip Touch Café Location Map"
+            <iframe title="The Tulip Touch Café Location Map"
               src="https://maps.google.com/maps?q=The+Tulip+Touch+Cafe,+Akota,+Vadodara&t=m&z=17&ie=UTF8&iwloc=B&output=embed"
-              width="100%"
-              height="100%"
-              style="border:0;"
-              allowfullscreen=""
-              loading="lazy">
+              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
             </iframe>
           </div>
 
@@ -542,10 +570,10 @@
   <!-- FOOTER -->
   <footer class="flora-footer">
     <div class="container">
-      
+
       <!-- Main Footer Grid -->
       <div class="flora-footer-grid">
-        
+
         <!-- Column 1: Newsletter / Contact CTA -->
         <div class="flora-footer-col-news">
           <p class="flora-footer-news-text">
@@ -584,8 +612,10 @@
           </p>
           <div class="flora-footer-socials mt-3">
             <a href="tel:+919106183731">Call Café</a> &nbsp;·&nbsp;
-            <a href="https://maps.google.com/?q=The+Tulip+Touch+Cafe+Vadodara" target="_blank">Google Maps</a> &nbsp;·&nbsp;
-            <a href="https://www.swiggy.com/restaurants/the-tulip-touch-cafe-akota-vadodara-657199" target="_blank">Swiggy</a>
+            <a href="https://maps.google.com/?q=The+Tulip+Touch+Cafe+Vadodara" target="_blank">Google Maps</a>
+            &nbsp;·&nbsp;
+            <a href="https://www.swiggy.com/restaurants/the-tulip-touch-cafe-akota-vadodara-657199"
+              target="_blank">Swiggy</a>
           </div>
         </div>
 
@@ -612,6 +642,7 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=25.0_step9_fg_59px_upper"></script>
 </body>
+
 </html>

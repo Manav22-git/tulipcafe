@@ -2,7 +2,7 @@
 // THE TULIP TOUCH CAFÉ — EXACT FLORA WELLNESS CAFÉ BENCHMARK SCRIPT
 // ==========================================================================
 
-document.addEventListener("DOMContentLoaded", () => {
+function initTulipCafe() {
   // 1. Mobile Drawer Toggle
   const hamburger = document.getElementById("hamburger");
   const mobileDrawer = document.getElementById("mobileDrawer");
@@ -32,9 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-
-
-  // 3. Vertical Back To Top Button (Flora Benchmark)
+  // 2. Vertical Back To Top Button
   const floraBackToTop = document.getElementById("floraBackToTop");
   if (floraBackToTop) {
     floraBackToTop.addEventListener("click", () => {
@@ -42,72 +40,78 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 4. ScrollExpand Opening Animation (React Bits Component Integration)
-  const seFrame = document.getElementById("seFrame");
-  const seMedia = document.getElementById("seMedia");
-  const seTitle = document.getElementById("seTitle");
-  const seHint = document.getElementById("seHint");
+  // 3. 2.5D Cinematic Multi-Plane Camera Engine
+  const seBg = document.getElementById("seBg");
+  const seBuildingWrap = document.getElementById("seBuildingWrap");
+  const heroTrack = document.getElementById("scrollExpandHero");
 
-  if (seFrame && seMedia) {
+  if (heroTrack) {
     const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
-    const smoothstep = (edge0, edge1, x) => {
-      const t = clamp((x - edge0) / (edge1 - edge0 || 1e-6), 0, 1);
-      return t * t * (3 - 2 * t);
+
+    // Responsive smoothstep curve for immediate, silky-smooth multi-plane detachment
+    const cameraEase = (p) => {
+      return p * p * (3 - 2 * p);
     };
 
-    const startWidth = 42;
-    const startHeight = 58;
-    const startRadius = 24;
-    const endRadius = 0;
-    const mediaZoom = 1.35;
-
-    let target = 0;
-    let current = 0;
+    let targetProgress = 0;
+    let currentProgress = 0;
+    let isRunning = false;
 
     const applyProgress = (p) => {
-      const e = smoothstep(0, 1, p);
-      const w = startWidth + (100 - startWidth) * e;
-      const h = startHeight + (100 - startHeight) * e;
-      const ix = Math.max(0, (100 - w) / 2);
-      const iy = Math.max(0, (100 - h) / 2);
-      const r = startRadius + (endRadius - startRadius) * e;
+      const e = cameraEase(p);
 
-      seFrame.style.clipPath = `inset(${iy}% ${ix}% ${iy}% ${ix}% round ${r}px)`;
-      seMedia.style.transform = `scale(${mediaZoom + (1 - mediaZoom) * e})`;
-
-      if (seTitle) {
-        const out = smoothstep(0.2, 0.85, p);
-        seTitle.style.opacity = `${1 - out}`;
-        seTitle.style.transform = `translate3d(0, ${-32 * out}px, 0) scale(${1 + 0.06 * out})`;
+      // 1. Background Sky (Distant horizon depth)
+      if (seBg) {
+        const bgScale = 1.0 + e * 0.18;
+        const bgY = -e * 18;
+        seBg.style.transform = `translate3d(0, ${bgY}px, 0) scale(${bgScale})`;
       }
 
-      if (seHint) {
-        const gone = smoothstep(0, 0.15, p);
-        seHint.style.opacity = `${1 - gone}`;
-        seHint.style.transform = `translate3d(0, ${10 * gone}px, 0)`;
+      // 2. Middle Building Layer (Zooms and stops at the exact requested frame)
+      if (seBuildingWrap) {
+        const buildingScale = 1.0 + e * 0.44;
+        const buildingY = e * (window.innerHeight * 0.165);
+        seBuildingWrap.style.transform = `translate3d(-50%, ${buildingY}px, 0) scale(${buildingScale})`;
       }
     };
 
-    const heroTrack = document.getElementById("scrollExpandHero");
+    const updateLoop = () => {
+      currentProgress += (targetProgress - currentProgress) * 0.2;
+      applyProgress(currentProgress);
+
+      if (Math.abs(targetProgress - currentProgress) > 0.0002) {
+        requestAnimationFrame(updateLoop);
+      } else {
+        currentProgress = targetProgress;
+        applyProgress(currentProgress);
+        isRunning = false;
+      }
+    };
+
     const onScroll = () => {
-      if (!heroTrack) return;
       const rect = heroTrack.getBoundingClientRect();
       const scrollableHeight = heroTrack.clientHeight - window.innerHeight;
       if (scrollableHeight <= 0) return;
 
-      target = clamp(-rect.top / scrollableHeight, 0, 1);
+      targetProgress = clamp(-rect.top / scrollableHeight, 0, 1);
 
-      const tick = () => {
-        current += (target - current) * 0.18;
-        applyProgress(current);
-        if (Math.abs(target - current) >= 0.0005) {
-          requestAnimationFrame(tick);
-        }
-      };
-      tick();
+      if (!isRunning) {
+        isRunning = true;
+        requestAnimationFrame(updateLoop);
+      }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    applyProgress(0);
+    document.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("load", onScroll, { passive: true });
+
+    onScroll();
   }
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initTulipCafe);
+} else {
+  initTulipCafe();
+}
