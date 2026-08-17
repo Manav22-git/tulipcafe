@@ -67,11 +67,12 @@ function initTulipCafe() {
         seBg.style.transform = `translate3d(0, ${bgY}px, 0) scale(${bgScale})`;
       }
 
-      // 2. Middle Building Layer (Zooms and stops at the exact requested frame)
-      if (seBuildingWrap) {
-        const buildingScale = 1.0 + e * 0.44;
-        const buildingY = e * (window.innerHeight * 0.165);
-        seBuildingWrap.style.transform = `translate3d(-50%, ${buildingY}px, 0) scale(${buildingScale})`;
+      // 2. Hero Master Layer (Centered Building + Screen-Fitted Foreground in 100% Lockstep)
+      const seMasterWrap = document.getElementById('seMasterWrap') || seBuildingWrap;
+      if (seMasterWrap) {
+        const masterScale = 1.0 + e * 0.44;
+        const masterY = e * (window.innerHeight * 0.165);
+        seMasterWrap.style.transform = `translate3d(0, ${masterY}px, 0) scale(${masterScale})`;
       }
     };
 
