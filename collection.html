@@ -4,13 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>The Tulip Touch Café</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Customer Reviews & Gallery | The Tulip Touch Café</title>
 
   <!-- Preconnect & Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@400;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
 
   <!-- Instant Navigation Guard -->
@@ -29,7 +32,7 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="style.css?v=45.0_icon_only_back" />
+  <link rel="stylesheet" href="style.css?v=77.0_removed_stats_bar" />
   <style>
     * {
       box-sizing: border-box;
@@ -40,17 +43,16 @@
     html,
     body {
       width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      overflow: hidden !important;
-      background: #ffffff !important;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: #faf8f5 !important;
       color: #1a1614;
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow-x: hidden;
       user-select: none;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* Icon-Only Circular Back Button Top Left */
@@ -70,7 +72,7 @@
       justify-content: center;
       transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
       cursor: pointer;
       outline: none;
     }
@@ -80,33 +82,1098 @@
     }
 
     .btn-return-interior:hover {
-      background: #382e29;
+      background: #b89738;
+      color: #1a1614;
       transform: translateY(-2px) scale(1.06);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 10px 28px rgba(184, 151, 56, 0.35);
     }
 
     .btn-return-interior:hover svg {
-      transform: translateX(-2px);
+      transform: translateX(-3px);
     }
 
-    /* Giant Centered Number Stage */
-    .number-stage {
+    /* Common Stage Container */
+    .story-stage,
+    .contact-stage,
+    .reviews-stage {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 90px 24px 80px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+    }
+
+    .page-view {
+      display: none !important;
+      width: 100%;
+    }
+
+    .page-view.active-view {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Header Badges & Titles */
+    .story-badge,
+    .awards-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 22px;
+      border-radius: 30px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(184, 151, 56, 0.4);
+      color: #8c6d1f;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .story-main-title,
+    .awards-main-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 700;
+      color: #1a1614;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .story-subtitle,
+    .awards-subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 1.9vw, 1.3rem);
+      color: #7a6858;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* Golden Divider Line */
+    .story-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto 48px auto;
+    }
+
+    .story-divider::before,
+    .story-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(184, 151, 56, 0.5), transparent);
+    }
+
+    .story-divider-icon {
+      color: #b89738;
+      font-size: 1rem;
+    }
+
+    /* Authentic Hand-Drawn Sketchpen Border Frame with Gap */
+    .story-photo-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 940px;
+      margin-bottom: 60px;
+      padding: 6px;
+      background: #faf8f5;
+      border: 2px solid #1a1614;
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px !important;
+      box-shadow: 1px 1.5px 0px 1px #1a1614, 0 14px 40px rgba(0, 0, 0, 0.07);
+      transition: transform 0.4s ease;
+    }
+
+    .story-photo-inner {
+      position: relative;
+      width: 100%;
+      border-radius: 0px !important;
+      overflow: hidden;
+      background: #1a1614;
+      border: 1px solid rgba(26, 22, 20, 0.2);
+    }
+
+    .story-photo-img {
+      width: 100%;
+      height: auto;
+      max-height: 640px;
+      object-fit: cover;
+      display: block;
+      border-radius: 0px !important;
+      transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    /* Grid of Story Narrative Chapters */
+    .story-chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 28px;
+      width: 100%;
+      max-width: 1080px;
+      margin-bottom: 60px;
+    }
+
+    .story-chapter-card {
+      background: #ffffff;
+      border: 1px solid rgba(26, 22, 20, 0.08);
+      border-radius: 0px !important;
+      padding: 36px 28px;
+      text-align: left;
+      position: relative;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .chapter-num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #b89738;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .chapter-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #1a1614;
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .chapter-desc {
+      font-size: 0.96rem;
+      color: #524741;
+      line-height: 1.68;
+    }
+
+    .story-actions,
+    .awards-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .btn-action-primary {
+      padding: 15px 34px;
+      border-radius: 30px;
+      background: #1a1614;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(26, 22, 20, 0.18);
+      border: 1px solid #1a1614;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .btn-action-primary:hover {
+      background: #b89738;
+      border-color: #b89738;
+      color: #1a1614;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(184, 151, 56, 0.3);
+    }
+
+    .btn-action-secondary {
+      padding: 15px 34px;
+      border-radius: 30px;
+      background: rgba(212, 175, 55, 0.1);
+      color: #1a1614;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(184, 151, 56, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .btn-action-secondary:hover {
+      background: rgba(184, 151, 56, 0.22);
+      transform: translateY(-2px);
+    }
+
+    /* ---------------------------------------------------- */
+    /* PINNED EXPAND AWARDS PAGE                            */
+    /* ---------------------------------------------------- */
+
+    .awards-stage {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-pinned-viewport {
+      position: relative;
       width: 100vw;
+      max-width: 100%;
       height: 100vh;
       height: 100dvh;
+      overflow: hidden;
+      background: #faf8f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-left-col {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30vw;
+      height: 100vh;
+      height: 100dvh;
+      padding: 90px 36px 40px 54px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #faf8f5;
+      z-index: 10;
+      will-change: transform, opacity;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-right-col {
+      position: absolute;
+      top: 0;
+      left: 30vw;
+      width: 70vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      z-index: 5;
+      will-change: left, width;
+      transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1), width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-photo-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 0px !important;
+      overflow: hidden;
+      background: #1a1614;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border-radius: 0px !important;
+    }
+
+    .technica-tag-pill {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      padding: 8px 20px;
+      border-radius: 0px !important;
+      background: rgba(26, 22, 20, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #f3e5ab;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      z-index: 2;
+    }
+
+    .photo-center-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      z-index: 20;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding: 0;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      opacity: 0;
+      pointer-events: none;
+      width: 92vw;
+      max-width: 1300px;
+      will-change: opacity, transform;
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .display-giant-number {
+    .photo-center-overlay.active-overlay {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .overlay-award-title {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(14rem, 38vw, 26rem);
+      font-size: clamp(3.2rem, 6.8vw, 6.2rem);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.92), 0 3px 10px rgba(0, 0, 0, 0.85);
+      margin: 0;
+    }
+
+    .awards-scrolled-content {
+      width: 100%;
+      max-width: 1000px;
+      padding: 100px 28px 90px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      position: relative;
+      z-index: 30;
+      background: #faf8f5;
+    }
+
+    .awards-direct-text-wrapper {
+      width: 100%;
+      margin-bottom: 70px;
+    }
+
+    .awards-direct-paragraph {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+      font-weight: 400;
+      color: #2c2420;
+      line-height: 1.75;
+      letter-spacing: -0.01em;
+      margin-bottom: 40px;
+    }
+
+    .awards-direct-paragraph strong {
       font-weight: 700;
       color: #1a1614;
-      line-height: 0.85;
-      letter-spacing: -0.05em;
+    }
+
+    .awards-direct-signoff {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+      color: #b89738;
+      margin-top: 50px;
+      line-height: 1.5;
+    }
+
+    .technica-photo-container {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-radius: 0px !important;
+      overflow: hidden;
+      background: #faf8f5;
+      margin-bottom: 50px;
+    }
+
+    .technica-photo-img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      border-radius: 0px !important;
+    }
+
+    /* ---------------------------------------------------- */
+    /* VIEW 4: DUAL MARQUEE REVIEWS WITH CLOUDY FADE EDGES  */
+    /* ---------------------------------------------------- */
+
+    /* Dual Marquee Container with Soft Organic Cloudy Fog Edges */
+    .reviews-marquee-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 70px auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 10px 0;
+      position: relative;
+    }
+
+    /* Left Side Soft Cloudy Dissolve Fog */
+    .reviews-marquee-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -1px;
+      width: 140px;
+      height: 100%;
+      background: linear-gradient(90deg, #faf8f5 0%, rgba(250, 248, 245, 0.92) 35%, rgba(250, 248, 245, 0.5) 68%, rgba(250, 248, 245, 0) 100%);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Right Side Soft Cloudy Dissolve Fog */
+    .reviews-marquee-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 140px;
+      height: 100%;
+      background: linear-gradient(-90deg, #faf8f5 0%, rgba(250, 248, 245, 0.92) 35%, rgba(250, 248, 245, 0.5) 68%, rgba(250, 248, 245, 0) 100%);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .reviews-marquee-row {
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .reviews-marquee-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      will-change: transform;
+    }
+
+    /* Row 1: Right to Left */
+    .marquee-row-upper .reviews-marquee-track {
+      animation: scrollRightToLeft 36s linear infinite;
+    }
+
+    /* Row 2: Left to Right */
+    .marquee-row-lower .reviews-marquee-track {
+      animation: scrollLeftToRight 36s linear infinite;
+    }
+
+    .reviews-marquee-container:hover .reviews-marquee-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollRightToLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes scrollLeftToRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    .marquee-review-card {
+      width: 360px;
+      min-width: 360px;
+      background: #ffffff;
+      border: 1px solid rgba(26, 22, 20, 0.12);
+      padding: 30px 26px;
+      text-align: left;
+      border-radius: 0px !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .marquee-review-card:hover {
+      transform: translateY(-4px);
+      border-color: #b89738;
+      box-shadow: 0 14px 36px rgba(184, 151, 56, 0.18);
+    }
+
+    .review-stars {
+      color: #b89738;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .review-quote {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #2c2420;
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .review-author-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(26, 22, 20, 0.08);
+      padding-top: 14px;
+    }
+
+    .review-author-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #1a1614;
+    }
+
+    .review-author-tag {
+      font-size: 0.76rem;
+      color: #8c6d1f;
+      font-weight: 600;
+      background: rgba(212, 175, 55, 0.12);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 16:9 MAIN FEATURED VIDEO SHOWCASE PLAYER             */
+    /* ---------------------------------------------------- */
+
+    .media-showcase-section {
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .media-section-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+      font-weight: 700;
+      color: #1a1614;
+      margin-bottom: 8px;
+    }
+
+    .media-section-subheading {
+      font-size: 0.98rem;
+      color: #7a6858;
+      margin-bottom: 38px;
+    }
+
+    /* Featured 16:9 Aspect Ratio Video Showcase Box */
+    .video-showcase-wrapper-169 {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto 52px auto;
+      padding: 8px;
+      background: #faf8f5;
+      border: 2.5px solid #1a1614;
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px !important;
+      box-shadow: 2px 3px 0px 1px #1a1614, 0 16px 44px rgba(0, 0, 0, 0.09);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .video-showcase-wrapper-169:hover {
+      transform: translateY(-3px);
+      box-shadow: 3px 4px 0px 1px #1a1614, 0 20px 50px rgba(0, 0, 0, 0.13);
+    }
+
+    .video-showcase-inner-169 {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #1a1614;
+      overflow: hidden;
+      border: 1px solid rgba(26, 22, 20, 0.2);
+    }
+
+    .video-showcase-poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.4s ease;
+    }
+
+    .video-showcase-wrapper-169:hover .video-showcase-poster {
+      transform: scale(1.03);
+      filter: brightness(0.95);
+    }
+
+    .video-play-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: rgba(26, 22, 20, 0.88);
+      border: 2px solid #b89738;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      z-index: 10;
+    }
+
+    .video-showcase-wrapper-169:hover .video-play-overlay {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: #b89738;
+      color: #1a1614;
+    }
+
+    .video-badge-pill {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      padding: 8px 20px;
+      background: #1a1614;
+      color: #f3e5ab;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid #b89738;
+      z-index: 10;
+    }
+
+    /* ---------------------------------------------------- */
+    /* SPLIT MEDIA GRID: 2x2 PHOTOS GRID + TALL REEL COLUMN */
+    /* ---------------------------------------------------- */
+
+    .media-showcase-split-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 26px;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+
+    /* 2x2 Photo Grid (4 Photos across 2 rows) */
+    .photos-2x2-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      height: 100%;
+    }
+
+    .photo-gallery-card {
+      position: relative;
+      height: 310px;
+      background: #1a1614;
+      overflow: hidden;
+      border: 1.5px solid #1a1614;
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .photo-gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .photo-gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .photo-gallery-card:hover .photo-gallery-img {
+      transform: scale(1.07);
+    }
+
+    .photo-gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 22px 22px 18px 22px;
+      background: linear-gradient(0deg, rgba(26, 22, 20, 0.92) 0%, transparent 100%);
+      color: #faf8f5;
+      text-align: left;
+    }
+
+    .photo-caption-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+
+    .photo-caption-tag {
+      font-size: 0.78rem;
+      color: #b89738;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    /* Tall Vertical Reel Column (Spans full height of 2 photo rows) */
+    .reel-vertical-column {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      align-items: center;
+    }
+
+    .reel-vertical-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 640px;
+      padding: 6px;
+      background: #faf8f5;
+      border: 2.5px solid #1a1614;
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px !important;
+      box-shadow: 2px 3px 0px 1px #1a1614, 0 12px 36px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .reel-vertical-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 630px;
+      background: #ffffff;
+      overflow: hidden;
+      border: 1px solid rgba(26, 22, 20, 0.2);
+    }
+
+    .reel-vertical-iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 630px;
+      border: 0;
+      display: block;
+    }
+
+    .reel-action-pill-wrap {
+      margin-top: 14px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .reel-badge-pill {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #1a1614;
+      color: #f3e5ab;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid #b89738;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .reel-badge-pill:hover {
+      background: #b89738;
+      color: #1a1614;
+      transform: translateY(-2px);
+    }
+
+    /* ---------------------------------------------------- */
+    /* VIEW 5: TABLE RESERVATION & CONTACT STYLING          */
+    /* ---------------------------------------------------- */
+
+    .contact-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 1000px;
+      margin-bottom: 54px;
+    }
+
+    .contact-card {
+      background: #ffffff;
+      border: 1px solid rgba(26, 22, 20, 0.08);
+      padding: 38px 26px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0px !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .contact-icon-wrap {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1.5px solid rgba(184, 151, 56, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px auto;
+    }
+
+    .handdrawn-icon {
+      width: 26px;
+      height: 26px;
+      stroke: #1a1614;
+    }
+
+    .contact-card-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1a1614;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .contact-card-text {
+      font-size: 0.95rem;
+      color: #524741;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    /* ARTISTIC MAP STYLING */
+    .artistic-map-section {
+      width: 100%;
+      max-width: 1000px;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .artistic-map-wrapper {
+      position: relative;
+      width: 100%;
+      padding: 8px;
+      background: #faf8f5;
+      border: 2.5px solid #1a1614;
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px !important;
+      box-shadow: 2px 2.5px 0px 1px #1a1614, 0 16px 40px rgba(0, 0, 0, 0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .artistic-map-wrapper:hover {
+      transform: translateY(-3px);
+      box-shadow: 3px 3.5px 0px 1px #1a1614, 0 20px 48px rgba(0, 0, 0, 0.12);
+    }
+
+    .artistic-map-inner {
+      position: relative;
+      width: 100%;
+      height: 440px;
+      border-radius: 0px !important;
+      overflow: hidden;
+      background: #e6e2da;
+      border: 1px solid rgba(26, 22, 20, 0.25);
+    }
+
+    .artistic-map-iframe {
+      width: 100%;
+      height: 100%;
+      filter: grayscale(85%) contrast(120%) sepia(25%) brightness(96%);
+      transition: filter 0.5s ease;
+    }
+
+    .artistic-map-wrapper:hover .artistic-map-iframe {
+      filter: grayscale(45%) contrast(110%) sepia(15%) brightness(98%);
+    }
+
+    .artistic-map-badge {
+      position: absolute;
+      bottom: 20px;
+      right: 24px;
+      padding: 8px 18px;
+      background: #1a1614;
+      color: #f3e5ab;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid #b89738;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Form Container */
+    .contact-form-container {
+      width: 100%;
+      max-width: 1000px;
+      background: #ffffff;
+      border: 1px solid rgba(184, 151, 56, 0.3);
+      padding: 44px 38px;
+      text-align: left;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.06);
+      margin-bottom: 40px;
+    }
+
+    .form-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.85rem;
+      color: #1a1614;
+      margin-bottom: 6px;
+    }
+
+    .form-subheading {
+      font-size: 0.95rem;
+      color: #7a6858;
+      margin-bottom: 28px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #382e29;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: #faf8f5;
+      border: 1px solid rgba(26, 22, 20, 0.15);
+      border-radius: 0px !important;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: #1a1614;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #b89738;
+      box-shadow: 0 0 0 3px rgba(184, 151, 56, 0.18);
+    }
+
+    .contact-form-toast {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(184, 151, 56, 0.12);
+      border: 1px solid #b89738;
+      color: #8c6d1f;
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
+      .media-showcase-split-layout {
+        grid-template-columns: 1fr;
+      }
+      .reel-vertical-wrapper,
+      .reel-vertical-inner,
+      .reel-vertical-iframe {
+        min-height: 520px;
+      }
+      .hero-pinned-viewport {
+        position: relative;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .hero-left-col {
+        position: relative;
+        width: 100% !important;
+        height: auto !important;
+        padding: 80px 18px 30px 18px;
+        text-align: center;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+      .hero-right-col {
+        position: relative;
+        left: 0 !important;
+        width: 100% !important;
+        height: 340px !important;
+      }
+      .overlay-award-title {
+        white-space: normal;
+      }
+      .awards-scrolled-content {
+        padding: 60px 18px;
+      }
+      .contact-form-container {
+        padding: 28px 20px;
+      }
+      .artistic-map-inner {
+        height: 320px;
+      }
+      .photos-2x2-grid {
+        grid-template-columns: 1fr;
+      }
+      .photo-gallery-card {
+        height: 260px;
+      }
+      .marquee-review-card {
+        width: 300px;
+        min-width: 300px;
+      }
+      .reviews-marquee-container::before,
+      .reviews-marquee-container::after {
+        width: 70px;
+      }
     }
   </style>
 </head>
@@ -133,17 +1200,733 @@
     </div>
   </div>
 
-  <!-- Icon-Only Back Button -->
-  <a href="interior.html" class="btn-return-interior" id="btnBackInterior" aria-label="Back">
+  <!-- Icon-Only Circular Back Button -->
+  <a href="interior.html" class="btn-return-interior nav-transition-link" id="btnBackInterior" aria-label="Return to Café Interior">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
       <line x1="19" y1="12" x2="5" y2="12"></line>
       <polyline points="12 19 5 12 12 5"></polyline>
     </svg>
   </a>
 
-  <!-- Giant Number Only in Center -->
-  <main class="number-stage">
-    <div class="display-giant-number" id="frameNumber">1</div>
+  <!-- ==================================================== -->
+  <!-- VIEW 1: OUR STORY PAGE (frame=1 or default)         -->
+  <!-- ==================================================== -->
+  <main class="story-stage page-view" id="storyStage">
+    
+    <!-- Top Header Badge -->
+    <div class="story-badge">
+      <span id="badgeText">Our Story</span>
+    </div>
+
+    <!-- Main Page Heading -->
+    <h1 class="story-main-title">The Story of Tulip Touch Café</h1>
+    <p class="story-subtitle">Where Parisian Elegance Meets Artisanal Coffee Mastery</p>
+
+    <!-- Ornamental Divider -->
+    <div class="story-divider">
+      <span class="story-divider-icon">✦</span>
+    </div>
+
+    <!-- Hero Featured Photo Frame (Handdrawn Black Sketchpen Border with Gap) -->
+    <div class="story-photo-wrapper">
+      <div class="story-photo-inner">
+        <img src="images/tulip touch story.webp"
+          onerror="this.onerror=null; this.src='public/images/tulip touch story.webp';"
+          alt="The Story of Tulip Touch Café Artwork"
+          class="story-photo-img" />
+      </div>
+    </div>
+
+    <!-- Narrative Story Chapters -->
+    <section class="story-chapters-grid" aria-label="Café Story Chapters">
+      
+      <article class="story-chapter-card">
+        <span class="chapter-num">Chapter I</span>
+        <h2 class="chapter-title">The Vision & Heritage</h2>
+        <p class="chapter-desc">
+          The Tulip Touch Café was conceived as a dreamy sanctuary where classical European aesthetics meet warm contemporary hospitality. Inspired by romantic Parisian coffee houses and hand-crafted 2D comic art, every detail in our café is created to evoke wonder, warmth, and timeless beauty.
+        </p>
+      </article>
+
+      <article class="story-chapter-card">
+        <span class="chapter-num">Chapter II</span>
+        <h2 class="chapter-title">The Artisanal Craft</h2>
+        <p class="chapter-desc">
+          From single-origin hand-poured roasts to masterfully baked signature pastries, every recipe is crafted with genuine passion. Our baristas and chefs infuse every creation with culinary precision, ensuring that each cup served is a celebration of flavor and artistry.
+        </p>
+      </article>
+
+      <article class="story-chapter-card">
+        <span class="chapter-num">Chapter III</span>
+        <h2 class="chapter-title">The Café Ambiance</h2>
+        <p class="chapter-desc">
+          Surrounded by ornate baroque wall frames, warm dining tables, and soft golden light, Tulip Touch Café offers more than just exceptional food and drink—it is a cozy retreat designed for quiet indulgence, inspiring conversations, and cherished memories.
+        </p>
+      </article>
+
+    </section>
+
+    <!-- Action Buttons -->
+    <div class="story-actions">
+      <a href="interior.html" class="btn-action-primary nav-transition-link">
+        <span>← Return to Café Interior</span>
+      </a>
+      <a href="collection.html?frame=5" class="btn-action-secondary nav-transition-link">
+        <span>Reserve Your Table →</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- ==================================================== -->
+  <!-- VIEW 2: AWARDS & ACHIEVEMENTS (frame=2)              -->
+  <!-- ==================================================== -->
+  <main class="awards-stage page-view" id="awardsStage">
+    
+    <!-- Hero Pinned Viewport Container -->
+    <div class="hero-pinned-viewport" id="heroPinnedViewport">
+      
+      <!-- Left Text Column (Moves Left & Disappears) -->
+      <div class="hero-left-col" id="heroLeftCol">
+        <div class="awards-badge">
+          <span>Our Awards & Achievements</span>
+        </div>
+        <h1 class="awards-main-title">Honored With National Excellence</h1>
+        <p class="awards-subtitle">Celebrating Extraordinary Milestones & Recognition Across India</p>
+        <div class="story-divider" style="margin: 0 0 24px 0; justify-content: flex-start;">
+          <span class="story-divider-icon">✦</span>
+        </div>
+        <p style="font-size: 0.95rem; color: #524741; line-height: 1.65;">
+          "Great achievements are nurtured with the cooperation of many minds with a common vision working toward a common goal."
+        </p>
+      </div>
+
+      <!-- Right Main Award Photo Column (Moves Left & Expands to 100vw Full Screen) -->
+      <div class="hero-right-col" id="heroRightCol">
+        <div class="hero-photo-wrapper" id="heroPhotoWrapper">
+          <img src="images/awards main.webp"
+            onerror="this.onerror=null; this.src='public/images/awards main.webp';"
+            alt="Best Cafe of the Year Award Ceremony"
+            class="hero-photo-img" id="heroPhotoImg" />
+          <span class="technica-tag-pill">National Winner</span>
+
+          <!-- Big Size Award Title Overlay (NO background box, NO border, NO subtext) -->
+          <div class="photo-center-overlay" id="photoCenterOverlay">
+            <h2 class="overlay-award-title">Best Cafe of the Year</h2>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scrolled Down Content Section (Direct On-Page Text Style - Café Technica Reference) -->
+    <div class="awards-scrolled-content" id="awardsScrolledContent">
+      
+      <!-- Direct Paragraph Text Written On Page (No Box, No Background, No Border) -->
+      <article class="awards-direct-text-wrapper">
+        <p class="awards-direct-paragraph">
+          Great achievements are nurtured with the cooperation of many minds with a common vision working toward a common goal, Our " The Tulip Touch Cafe" is honored to receive <strong>"Best Cafe of the Year"</strong> in All Non-Metro Cities of India out of 1000+ entries.
+        </p>
+
+        <p class="awards-direct-paragraph">
+          And also received <strong>Best Newcomer cafe in Entire India</strong>. 2023 is our year for success and new achievements.
+        </p>
+
+        <p class="awards-direct-signoff">
+          Thank you for your love and support... — The Tulip Touch Café Family
+        </p>
+      </article>
+
+      <!-- Second Award Showcase Photo (Uncropped Complete Photo) -->
+      <section style="width: 100%; margin-bottom: 50px;">
+        <div class="technica-photo-container">
+          <img src="images/award second photo.webp"
+            onerror="this.onerror=null; this.src='public/images/award second photo.webp';"
+            alt="Best Newcomer Cafe Award Recognition"
+            class="technica-photo-img" />
+          <span class="technica-tag-pill">Pan-India Acclaim</span>
+        </div>
+      </section>
+
+      <!-- Action Buttons -->
+      <div class="awards-actions" style="width: 100%; justify-content: flex-start;">
+        <a href="interior.html" class="btn-action-primary nav-transition-link">
+          <span>← Return to Café Interior</span>
+        </a>
+        <a href="collection.html?frame=5" class="btn-action-secondary nav-transition-link">
+          <span>Reserve Your Table →</span>
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ==================================================== -->
+  <!-- VIEW 4: CUSTOMER REVIEWS & GALLERY PAGE (frame=4)    -->
+  <!-- ==================================================== -->
+  <main class="reviews-stage page-view" id="reviewsStage">
+    
+    <!-- Top Header Badge -->
+    <div class="story-badge">
+      <span>Guest Reviews & Press</span>
+    </div>
+
+    <!-- Main Page Heading -->
+    <h1 class="story-main-title">Loved by Coffee Connoisseurs</h1>
+    <p class="story-subtitle">Discover authentic stories and experiences from our valued guests across India</p>
+
+    <!-- Ornamental Divider -->
+    <div class="story-divider">
+      <span class="story-divider-icon">✦</span>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- DUAL INFINITE MARQUEE ROWS (RIGHT-TO-LEFT & LEFT-TO-RIGHT) -->
+    <!-- ==================================================== -->
+    <section class="reviews-marquee-container" aria-label="Guest Reviews Infinite Ticker">
+      
+      <!-- ROW 1: UPPER MARQUEE (Right to Left) -->
+      <div class="reviews-marquee-row marquee-row-upper">
+        <div class="reviews-marquee-track">
+          
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "The Tulip Touch Café is an absolute masterpiece! Walking in feels like stepping into a 2D Parisian comic sanctuary. The hand-poured single-origin roast is divine."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Ananya Roy</span>
+              <span class="review-author-tag">Food Connoisseur</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "We hosted our anniversary celebration here. The ambiance under the ornate baroque wall frames is unparalleled. Award-winning quality!"
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Vikramaditya & Meera</span>
+              <span class="review-author-tag">Regular Guests</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Hands down the best coffee in Gujarat! The aesthetic is 10/10, every corner is picture-perfect, and the staff treats you like family."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Rohan Mehta</span>
+              <span class="review-author-tag">Coffee Enthusiast</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Truly deserving of 'Best Cafe of the Year'! The attention to detail from the hand-drawn decor to the artisanal brews makes every visit magical."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Dr. Shalini Kapoor</span>
+              <span class="review-author-tag">Lifestyle Blogger</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "The signature pistachio tart and hazelnut cappuccino are out of this world. A dreamy sanctuary in Vadodara!"
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Priyanshi Patel</span>
+              <span class="review-author-tag">Pastry Connoisseur</span>
+            </div>
+          </article>
+
+          <!-- DUPLICATES FOR SEAMLESS INFINITE LOOPING -->
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "The Tulip Touch Café is an absolute masterpiece! Walking in feels like stepping into a 2D Parisian comic sanctuary. The hand-poured single-origin roast is divine."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Ananya Roy</span>
+              <span class="review-author-tag">Food Connoisseur</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "We hosted our anniversary celebration here. The ambiance under the ornate baroque wall frames is unparalleled. Award-winning quality!"
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Vikramaditya & Meera</span>
+              <span class="review-author-tag">Regular Guests</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Hands down the best coffee in Gujarat! The aesthetic is 10/10, every corner is picture-perfect, and the staff treats you like family."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Rohan Mehta</span>
+              <span class="review-author-tag">Coffee Enthusiast</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Truly deserving of 'Best Cafe of the Year'! The attention to detail from the hand-drawn decor to the artisanal brews makes every visit magical."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Dr. Shalini Kapoor</span>
+              <span class="review-author-tag">Lifestyle Blogger</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "The signature pistachio tart and hazelnut cappuccino are out of this world. A dreamy sanctuary in Vadodara!"
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Priyanshi Patel</span>
+              <span class="review-author-tag">Pastry Connoisseur</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ROW 2: LOWER MARQUEE (Left to Right) -->
+      <div class="reviews-marquee-row marquee-row-lower">
+        <div class="reviews-marquee-track">
+          
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "The 2D monochrome sketch walls combined with warm golden lighting create an atmosphere you won't find anywhere else in India."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Kabir Sharma</span>
+              <span class="review-author-tag">Architect & Designer</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Impeccable service, heavenly aroma of freshly roasted beans, and mouth-watering artisanal pasta. 10/10 experience!"
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Tanvi Trivedi</span>
+              <span class="review-author-tag">Foodie Digest</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Came for the Instagrammable interior, stayed for the best espresso shot of my life. Tulip Touch is pure perfection."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Aarav Joshi</span>
+              <span class="review-author-tag">Travel & Food Creator</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "A romantic haven for quiet coffee dates. The staff is so polite and the pastries are freshly baked every morning."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Neha & Siddharth</span>
+              <span class="review-author-tag">Coffee Date</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Proud that Vadodara has such a world-class award-winning café! Highly recommended for all coffee & tea lovers."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Devang Parikh</span>
+              <span class="review-author-tag">Local Guide</span>
+            </div>
+          </article>
+
+          <!-- DUPLICATES FOR SEAMLESS INFINITE LOOPING -->
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "The 2D monochrome sketch walls combined with warm golden lighting create an atmosphere you won't find anywhere else in India."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Kabir Sharma</span>
+              <span class="review-author-tag">Architect & Designer</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Impeccable service, heavenly aroma of freshly roasted beans, and mouth-watering artisanal pasta. 10/10 experience!"
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Tanvi Trivedi</span>
+              <span class="review-author-tag">Foodie Digest</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Came for the Instagrammable interior, stayed for the best espresso shot of my life. Tulip Touch is pure perfection."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Aarav Joshi</span>
+              <span class="review-author-tag">Travel & Food Creator</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "A romantic haven for quiet coffee dates. The staff is so polite and the pastries are freshly baked every morning."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Neha & Siddharth</span>
+              <span class="review-author-tag">Coffee Date</span>
+            </div>
+          </article>
+
+          <article class="marquee-review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote class="review-quote">
+              "Proud that Vadodara has such a world-class award-winning café! Highly recommended for all coffee & tea lovers."
+            </blockquote>
+            <div class="review-author-wrap">
+              <span class="review-author-name">Devang Parikh</span>
+              <span class="review-author-tag">Local Guide</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================================================== -->
+    <!-- MEDIA SHOWCASE GALLERY (16:9 VIDEO + SPLIT GRID)     -->
+    <!-- ==================================================== -->
+    <section class="media-showcase-section" aria-label="Café Photo & Video Showcase">
+      <span class="chapter-num">Visual Journey</span>
+      <h2 class="media-section-heading">Café Ambiance & Culinary Showcase</h2>
+      <p class="media-section-subheading">Immerse yourself in the visual elegance, artisanal creations, & vibrant atmosphere of The Tulip Touch Café</p>
+
+      <!-- 1. FEATURED 16:9 MAIN AMBIANCE VIDEO SHOWCASE BOX (TOP) -->
+      <div class="video-showcase-wrapper-169">
+        <div class="video-showcase-inner-169">
+          <img src="assest/hero3d/exterior.jpg"
+            onerror="this.onerror=null; this.src='public/assest/hero3d/exterior.jpg';"
+            alt="The Tulip Touch Café Exterior & Ambiance Video Cover"
+            class="video-showcase-poster" />
+          
+          <!-- Golden Play Overlay Button -->
+          <div class="video-play-overlay" title="Play Main Ambiance Video">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" style="margin-left: 4px;">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+
+          <span class="video-badge-pill">✦ Experience The Tulip Touch Café ✦</span>
+        </div>
+      </div>
+
+      <!-- 2. SPLIT MEDIA GRID: 2x2 PHOTOS GRID (LEFT) + TALL REEL COLUMN (RIGHT) -->
+      <div class="media-showcase-split-layout">
+        
+        <!-- LEFT SIDE: 2x2 PHOTOS GRID (4 Photos across 2 rows) -->
+        <div class="photos-2x2-grid">
+          
+          <article class="photo-gallery-card">
+            <img src="assest/interior-view.jpg"
+              onerror="this.onerror=null; this.src='public/assest/interior-view.jpg';"
+              alt="Grand Parisian Dining Hall"
+              class="photo-gallery-img" />
+            <div class="photo-gallery-caption">
+              <h3 class="photo-caption-title">Grand Dining Sanctuary</h3>
+              <span class="photo-caption-tag">Parisian Ambiance</span>
+            </div>
+          </article>
+
+          <article class="photo-gallery-card">
+            <img src="assest/food/food1.png"
+              onerror="this.onerror=null; this.src='public/assest/food/food1.png';"
+              alt="Artisanal Coffee & Gourmet Delicacies"
+              class="photo-gallery-img" />
+            <div class="photo-gallery-caption">
+              <h3 class="photo-caption-title">Hand-Poured Roasts</h3>
+              <span class="photo-caption-tag">Artisanal Coffee</span>
+            </div>
+          </article>
+
+          <article class="photo-gallery-card">
+            <img src="assest/best interior 2.png"
+              onerror="this.onerror=null; this.src='public/assest/best interior 2.png';"
+              alt="Monochrome 2D Sketch Interior"
+              class="photo-gallery-img" />
+            <div class="photo-gallery-caption">
+              <h3 class="photo-caption-title">2D Sketch Architecture</h3>
+              <span class="photo-caption-tag">Baroque Wall Frames</span>
+            </div>
+          </article>
+
+          <article class="photo-gallery-card">
+            <img src="assest/food/food 3.png"
+              onerror="this.onerror=null; this.src='public/assest/food/food 3.png';"
+              alt="Handcrafted Specialty Beverages"
+              class="photo-gallery-img" />
+            <div class="photo-gallery-caption">
+              <h3 class="photo-caption-title">Specialty Concoctions</h3>
+              <span class="photo-caption-tag">Barista Specials</span>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- RIGHT SIDE: TALL VERTICAL INSTAGRAM REEL COLUMN (Spans full height of 2 photo rows!) -->
+        <div class="reel-vertical-column">
+          <div class="reel-vertical-wrapper">
+            <div class="reel-vertical-inner">
+              <iframe
+                src="https://www.instagram.com/reel/DbalJtIs0fe/embed/"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                scrolling="no"
+                allowtransparency="true"
+                allow="encrypted-media"
+                title="The Tulip Touch Café Official Instagram Reel"
+                class="reel-vertical-iframe"></iframe>
+            </div>
+          </div>
+          <div class="reel-action-pill-wrap">
+            <a href="https://www.instagram.com/reel/DbalJtIs0fe/" target="_blank" rel="noopener noreferrer" class="reel-badge-pill">
+              ✦ Watch Reel on Instagram ↗ ✦
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Action Buttons -->
+    <div class="story-actions" style="margin-top: 20px;">
+      <a href="interior.html" class="btn-action-primary nav-transition-link">
+        <span>← Return to Café Interior</span>
+      </a>
+      <a href="collection.html?frame=5" class="btn-action-secondary nav-transition-link">
+        <span>Reserve Your Table →</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- ==================================================== -->
+  <!-- VIEW 5: TABLE RESERVATION & CONTACT PAGE (frame=5)   -->
+  <!-- ==================================================== -->
+  <main class="contact-stage page-view" id="contactStage">
+    
+    <!-- Top Header Badge -->
+    <div class="story-badge">
+      <span>Reservations & Location</span>
+    </div>
+
+    <!-- Main Page Heading -->
+    <h1 class="story-main-title">We’d Love to Welcome You</h1>
+    <p class="story-subtitle">Book your table or reach out for inquiries, location details, & private events</p>
+
+    <!-- Ornamental Divider -->
+    <div class="story-divider">
+      <span class="story-divider-icon">✦</span>
+    </div>
+
+    <!-- Contact Info Cards Grid (Centered Text & Hand-Drawn Sketch SVG Icons in Middle) -->
+    <section class="contact-cards-grid" aria-label="Café Information">
+      
+      <!-- Card 1: Our Location -->
+      <article class="contact-card">
+        <div class="contact-icon-wrap">
+          <svg class="handdrawn-icon" viewBox="0 0 24 24" fill="none" stroke="#1a1614" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
+            <circle cx="12" cy="9" r="2.5"></circle>
+          </svg>
+        </div>
+        <h3 class="contact-card-title">Our Location</h3>
+        <p class="contact-card-text">
+          The Tulip Touch Café Flagship<br />
+          Near Main Boulevard, Vadodara<br />
+          Gujarat, India
+        </p>
+      </article>
+
+      <!-- Card 2: Opening Hours -->
+      <article class="contact-card">
+        <div class="contact-icon-wrap">
+          <svg class="handdrawn-icon" viewBox="0 0 24 24" fill="none" stroke="#1a1614" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle>
+            <polyline points="12 7 12 12 15 15"></polyline>
+            <path d="M12 1v2"></path>
+          </svg>
+        </div>
+        <h3 class="contact-card-title">Opening Hours</h3>
+        <p class="contact-card-text">
+          Monday – Sunday:<br />
+          <strong>9:00 AM – 11:00 PM</strong><br />
+          Fresh brews served daily
+        </p>
+      </article>
+
+      <!-- Card 3: Direct Contact -->
+      <article class="contact-card">
+        <div class="contact-icon-wrap">
+          <svg class="handdrawn-icon" viewBox="0 0 24 24" fill="none" stroke="#1a1614" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </div>
+        <h3 class="contact-card-title">Direct Contact</h3>
+        <p class="contact-card-text">
+          Reservations: +91 98765 43210<br />
+          General: +91 98765 43211<br />
+          Email: hello@tuliptouchcafe.com
+        </p>
+      </article>
+
+    </section>
+
+    <!-- Artistic Hand-Drawn Sketch Google Map Container -->
+    <section class="artistic-map-section" aria-label="Interactive Map Location">
+      <div style="margin-bottom: 24px;">
+        <span class="chapter-num">Interactive Directions</span>
+        <h2 class="form-heading" style="margin-bottom: 6px;">Find Our Sanctuary</h2>
+        <p class="form-subheading" style="margin-bottom: 0;">Located in Vadodara, Gujarat — Visit us for an unforgettable café experience.</p>
+      </div>
+
+      <!-- Hand-Drawn Sketch Frame Box with Floating Gap -->
+      <div class="artistic-map-wrapper">
+        <div class="artistic-map-inner">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.421991667963!2d73.1666433746075!3d22.299874842912157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc90a420aa025%3A0x5f20adb23cae29c2!2sThe%20Tulip%20Touch%20Caf%C3%A9!5e0!3m2!1sen!2sin!4v1787084535282!5m2!1sen!2sin"
+            width="100%"
+            height="440"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            class="artistic-map-iframe"
+            title="The Tulip Touch Café Location Map"></iframe>
+        </div>
+        <span class="artistic-map-badge">✦ The Tulip Touch Café ✦</span>
+      </div>
+    </section>
+
+    <!-- Table Reservation Form Box -->
+    <div class="contact-form-container" id="reserveTableForm">
+      <h2 class="form-heading">Reserve Your Table</h2>
+      <p class="form-subheading">Experience Parisian warmth & artisanal brews at The Tulip Touch Café</p>
+      
+      <form class="contact-form" id="reservationForm" onsubmit="handleReservationSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resName">Full Name</label>
+            <input type="text" id="resName" required placeholder="e.g. Rahul Sharma" />
+          </div>
+          <div class="form-group">
+            <label for="resPhone">Phone Number</label>
+            <input type="tel" id="resPhone" required placeholder="e.g. +91 98765 43210" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resDate">Reservation Date</label>
+            <input type="date" id="resDate" required />
+          </div>
+
+          <!-- 12-Hour AM/PM Time Format Selector -->
+          <div class="form-group">
+            <label for="resTime">Preferred Time (12-Hour Format)</label>
+            <select id="resTime" required>
+              <option value="9:00 AM">9:00 AM (Morning Brew)</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="12:00 PM">12:00 PM (Midday Dining)</option>
+              <option value="1:00 PM">1:00 PM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="3:00 PM">3:00 PM (Afternoon Tea)</option>
+              <option value="4:00 PM">4:00 PM</option>
+              <option value="5:00 PM" selected>5:00 PM (Evening Lounge)</option>
+              <option value="6:00 PM">6:00 PM</option>
+              <option value="7:00 PM">7:00 PM (Dinner & Pastries)</option>
+              <option value="8:00 PM">8:00 PM</option>
+              <option value="9:00 PM">9:00 PM</option>
+              <option value="10:00 PM">10:00 PM (Late Night Brew)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resGuests">Number of Guests</label>
+            <select id="resGuests" required>
+              <option value="1 Guest">1 Person (Quiet Coffee Date)</option>
+              <option value="2 Guests" selected>2 People (Cozy Dining Table)</option>
+              <option value="4 Guests">4 People (Family & Friends)</option>
+              <option value="6+ Guests">6+ People (Group Lounge)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="resSeating">Seating Preference</label>
+            <select id="resSeating">
+              <option value="Baroque Wall Frame Booth">Baroque Wall Frame Booth</option>
+              <option value="Window Parisian Dining">Window Parisian Dining</option>
+              <option value="Courtyard Terrace">Courtyard Terrace</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="resNotes">Special Requests (Optional)</label>
+          <textarea id="resNotes" rows="3" placeholder="Celebrations, dietary preferences, or quiet corner request..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-action-primary" style="width: 100%; justify-content: center;">
+          <span>Confirm Table Reservation →</span>
+        </button>
+      </form>
+
+      <div class="contact-form-toast" id="resToast" style="display:none;">
+        <span>✦ Table Reserved Successfully! Your reservation is confirmed. We look forward to welcoming you to The Tulip Touch Café!</span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="story-actions" style="margin-top: 20px;">
+      <a href="interior.html" class="btn-action-primary nav-transition-link">
+        <span>← Return to Café Interior</span>
+      </a>
+    </div>
+
   </main>
 
   <script>
@@ -155,17 +1938,156 @@
       loader.style.display = 'none';
     }
 
+    let expandState = 0; // 0 = split view (30%/70%), 1 = full-screen image (100%)
+
+    function applyExpandState(progress) {
+      const leftCol = document.getElementById('heroLeftCol');
+      const rightCol = document.getElementById('heroRightCol');
+      const centerOverlay = document.getElementById('photoCenterOverlay');
+
+      if (!leftCol || !rightCol) return;
+
+      progress = Math.max(0, Math.min(1, progress));
+      expandState = progress;
+
+      // Left text slides left out of frame (-105%) and fades out
+      leftCol.style.transform = `translateX(${-progress * 105}%)`;
+      leftCol.style.opacity = (1 - progress * 1.2).toFixed(3);
+
+      // Right photo moves left (30vw -> 0vw) and expands to 100vw
+      const currentLeft = 30 * (1 - progress);
+      const currentWidth = 70 + 30 * progress;
+
+      rightCol.style.left = `${currentLeft}vw`;
+      rightCol.style.width = `${currentWidth}vw`;
+
+      // Big title overlay AND downward scroll enablement ONLY when progress === 1 (fully fitted!)
+      if (progress >= 0.95) {
+        if (centerOverlay) centerOverlay.classList.add('active-overlay');
+        document.body.style.overflowY = 'auto';
+        document.documentElement.style.overflowY = 'auto';
+      } else {
+        if (centerOverlay) centerOverlay.classList.remove('active-overlay');
+        document.body.style.overflowY = 'hidden';
+        document.documentElement.style.overflowY = 'hidden';
+      }
+    }
+
+    function handleReservationSubmit(e) {
+      e.preventDefault();
+      const toast = document.getElementById('resToast');
+      const form = document.getElementById('reservationForm');
+      if (toast) {
+        toast.style.display = 'block';
+        if (form) form.reset();
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 6000);
+      }
+    }
+
+    // Wheel event handler: Locks vertical scroll until image is fully fitted
+    window.addEventListener('wheel', (e) => {
+      const awardsStage = document.getElementById('awardsStage');
+      if (!awardsStage || !awardsStage.classList.contains('active-view')) return;
+      if (window.innerWidth <= 860) return;
+
+      const currentScroll = window.scrollY || window.pageYOffset || 0;
+
+      if (currentScroll <= 5) {
+        if (e.deltaY > 0 && expandState < 1) {
+          // Prevent downward scroll until image is fully fitted!
+          e.preventDefault();
+          applyExpandState(expandState + 0.25);
+        } else if (e.deltaY < 0 && expandState > 0) {
+          // Collapse back left-to-right
+          e.preventDefault();
+          applyExpandState(expandState - 0.25);
+        }
+      }
+    }, { passive: false });
+
+    // Touch swipe handler
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      const awardsStage = document.getElementById('awardsStage');
+      if (!awardsStage || !awardsStage.classList.contains('active-view')) return;
+      if (window.innerWidth <= 860) return;
+
+      const currentScroll = window.scrollY || window.pageYOffset || 0;
+
+      if (currentScroll <= 5) {
+        const currentY = e.touches[0].clientY;
+        const diffY = touchStartY - currentY;
+
+        if (diffY > 10 && expandState < 1) {
+          e.preventDefault();
+          applyExpandState(expandState + 0.15);
+        } else if (diffY < -10 && expandState > 0) {
+          e.preventDefault();
+          applyExpandState(expandState - 0.15);
+        }
+      }
+    }, { passive: false });
+
     window.addEventListener('DOMContentLoaded', () => {
       const loader = document.getElementById('doorLoader');
-      const btnBack = document.getElementById('btnBackInterior');
-      const frameNumber = document.getElementById('frameNumber');
+      const transitionLinks = document.querySelectorAll('.nav-transition-link');
 
-      // Read query param (e.g. ?frame=1, ?frame=2, etc.)
+      // Set default reservation date to today
+      const dateInput = document.getElementById('resDate');
+      if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+      }
+
+      // Read query param (e.g. ?frame=1, ?frame=2, ?frame=4, ?frame=5)
       const urlParams = new URLSearchParams(window.location.search);
-      const id = urlParams.get('frame') || '1';
+      const frameId = urlParams.get('frame') || '1';
 
-      if (frameNumber) {
-        frameNumber.textContent = id;
+      const storyStage = document.getElementById('storyStage');
+      const awardsStage = document.getElementById('awardsStage');
+      const reviewsStage = document.getElementById('reviewsStage');
+      const contactStage = document.getElementById('contactStage');
+
+      // Switch active view based on frameId parameter with strict isolation
+      if (frameId === '2') {
+        document.title = "Awards & Achievements | The Tulip Touch Café";
+        if (storyStage) storyStage.classList.remove('active-view');
+        if (reviewsStage) reviewsStage.classList.remove('active-view');
+        if (contactStage) contactStage.classList.remove('active-view');
+        if (awardsStage) awardsStage.classList.add('active-view');
+        applyExpandState(0);
+      } else if (frameId === '4') {
+        document.title = "Guest Reviews & Gallery | The Tulip Touch Café";
+        if (storyStage) storyStage.classList.remove('active-view');
+        if (awardsStage) awardsStage.classList.remove('active-view');
+        if (contactStage) contactStage.classList.remove('active-view');
+        if (reviewsStage) reviewsStage.classList.add('active-view');
+        document.documentElement.style.overflowY = 'auto';
+        document.body.style.overflowY = 'auto';
+      } else if (frameId === '5') {
+        document.title = "Reserve Your Table | The Tulip Touch Café";
+        if (storyStage) storyStage.classList.remove('active-view');
+        if (awardsStage) awardsStage.classList.remove('active-view');
+        if (reviewsStage) reviewsStage.classList.remove('active-view');
+        if (contactStage) contactStage.classList.add('active-view');
+        document.documentElement.style.overflowY = 'auto';
+        document.body.style.overflowY = 'auto';
+      } else {
+        document.title = "Our Story | The Tulip Touch Café";
+        if (awardsStage) awardsStage.classList.remove('active-view');
+        if (reviewsStage) reviewsStage.classList.remove('active-view');
+        if (contactStage) contactStage.classList.remove('active-view');
+        if (storyStage) storyStage.classList.add('active-view');
+        document.documentElement.style.overflowY = 'auto';
+        document.body.style.overflowY = 'auto';
       }
 
       const navEntry = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
@@ -179,7 +2101,7 @@
           loader.classList.add('animating');
         }, 100);
 
-        // Curtain pulls UP to reveal the giant number
+        // Curtain pulls UP to reveal the page
         setTimeout(() => {
           loader.classList.add('pull-up');
           setTimeout(() => {
@@ -188,11 +2110,16 @@
         }, 1200);
       }
 
-      // Return Transition Handler
-      if (btnBack && loader) {
-        btnBack.addEventListener('click', (e) => {
+      // Smooth White Curtain Fall Transition for Navigation Links
+      transitionLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
           e.preventDefault();
-          const targetUrl = btnBack.getAttribute('href') || 'interior.html';
+          const targetUrl = link.getAttribute('href') || 'interior.html';
+
+          if (!loader) {
+            window.location.href = targetUrl;
+            return;
+          }
 
           loader.style.display = 'flex';
           loader.classList.remove('dismissed', 'pull-up', 'animating', 'active');
@@ -208,7 +2135,7 @@
             window.location.href = targetUrl;
           }, 850);
         });
-      }
+      });
     });
 
     // BFCache / History Navigation Handler

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "kill -9 $(lsof -t -i:8088 2>/dev/null) 2>/dev/null; npx http-server -p 8088",
+    "dev": "npx http-server -p 8088 -c-1",
     "dev:next": "next dev",
     "build": "next build",
     "start": "next start",
