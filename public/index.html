@@ -18,7 +18,23 @@
     href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
     rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=28.0_master_screenfit_lockstep" />
+  <!-- Instant Back-Navigation / Cached Session Guard (Prevents Loader on Chrome Back Button) -->
+  <script>
+    (function() {
+      var isBack = false;
+      try {
+        var navEntries = performance.getEntriesByType('navigation');
+        if (navEntries && navEntries.length > 0 && navEntries[0].type === 'back_forward') {
+          isBack = true;
+        }
+      } catch(e) {}
+      if (isBack || sessionStorage.getItem('tulip_home_ready') === 'true') {
+        document.documentElement.classList.add('tulip-loaded');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="style.css?v=38.0_pullup_final" />
   <style>
     /* Master Lockstep Wrapper */
     .se-master-wrap {
@@ -55,7 +71,7 @@
       display: block;
       pointer-events: none;
     }
-    /* 100% Full-Screen Fitted Foreground */
+    /* 100% Full-Screen Fitted Foreground with Feathered Edge Fading */
     .se-fg-wrap {
       position: absolute;
       inset: 0;
@@ -64,6 +80,8 @@
       z-index: 2;
       display: block;
       pointer-events: none;
+      -webkit-mask-image: radial-gradient(ellipse 92% 85% at 50% 75%, black 45%, transparent 100%);
+      mask-image: radial-gradient(ellipse 92% 85% at 50% 75%, black 45%, transparent 100%);
     }
     .se-fg-img {
       position: absolute;
@@ -80,6 +98,26 @@
 </head>
 
 <body class="flora-theme paper-texture">
+
+  <!-- Page Transition & Loading Animation Curtain (Triggered only on gate click) -->
+  <div class="tulip-door-loader" id="doorLoader" style="display: none;" aria-hidden="true">
+    <div class="loader-white-curtain">
+      <div class="loader-emblem-wrap">
+        <div class="loader-emblem-glow" aria-hidden="true"></div>
+        <!-- 1. Lightened outline emblem -->
+        <img src="assest/hero3d/hero-emblem.png"
+          onerror="this.onerror=null; this.src='public/assest/hero3d/hero-emblem.png';"
+          alt="The Tulip Touch Logo Light"
+          class="loader-emblem-light" />
+        
+        <!-- 2. Full color emblem filling from center to outside in a circle -->
+        <img src="assest/hero3d/hero-emblem.png"
+          onerror="this.onerror=null; this.src='public/assest/hero3d/hero-emblem.png';"
+          alt="The Tulip Touch Logo Full Color"
+          class="loader-emblem-fill" id="loaderEmblemFill" />
+      </div>
+    </div>
+  </div>
 
   <!-- Mobile Drawer Menu -->
   <div class="mobile-drawer" id="mobileDrawer">
@@ -118,6 +156,12 @@
                 <img src="assest/hero3d/hero-building.png"
                   onerror="this.onerror=null; this.src='public/assest/hero3d/hero-building.png';"
                   alt="The Tulip Touch Café Building" class="se-building-img" id="seBuilding" />
+                
+                <!-- Clickable Entrance Door Hotspot -->
+                <a href="interior.html" class="se-door-hotspot" id="seDoorHotspot" aria-label="Enter The Tulip Touch Café">
+                  <span class="se-door-glow"></span>
+                  <span class="se-door-tag">✦ Enter Café</span>
+                </a>
               </div>
               <div class="se-fg-wrap" id="seFgWrap">
                 <img src="assest/hero3d/hero-foreground.png"
@@ -665,7 +709,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=28.0_master_screenfit_lockstep"></script>
+  <script src="script.js?v=36.0_smooth_door_curtain"></script>
 </body>
 
 </html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Menu | The Tulip Touch Café</title>
+  <meta name="description" content="Explore our artisanal menu at The Tulip Touch Café. Thoughtfully crafted coffee, ceremonial teas, handcrafted pastas, and signature desserts." />
+
+  <!-- Preconnect & Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Instant Navigation Guard -->
+  <script>
+    (function() {
+      var isBack = false;
+      try {
+        var navEntries = performance.getEntriesByType('navigation');
+        if (navEntries && navEntries.length > 0 && navEntries[0].type === 'back_forward') {
+          isBack = true;
+        }
+      } catch(e) {}
+      if (isBack) {
+        document.documentElement.classList.add('tulip-loaded');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="style.css?v=47.0_table_menu" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100vw;
+      min-height: 100vh;
+      background-color: var(--bg-cream, #f7f3ec);
+      color: var(--text-primary, #2b221e);
+      font-family: var(--font-body, 'Inter', sans-serif);
+      overflow-x: hidden;
+    }
+
+    /* Icon-Only Circular Back Button Top Left */
+    .btn-return-interior {
+      position: fixed;
+      top: 28px;
+      left: 28px;
+      z-index: 100;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #1a1614;
+      color: #ffffff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .btn-return-interior svg {
+      transition: transform 0.25s ease;
+    }
+
+    .btn-return-interior:hover {
+      background: #382e29;
+      transform: translateY(-2px) scale(1.06);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+    }
+
+    .btn-return-interior:hover svg {
+      transform: translateX(-2px);
+    }
+
+    /* Menu Fullscreen Page Container */
+    .menu-page-stage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px 60px;
+    }
+
+    .menu-page-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .flora-menu-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 4.5rem;
+      align-items: flex-start;
+    }
+
+    .flora-menu-main-title {
+      font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+      font-size: clamp(2.4rem, 3.8vw, 3.2rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text-primary, #2b221e);
+      margin-bottom: 1.2rem;
+      line-height: 1.1;
+    }
+
+    .flora-menu-main-sub {
+      font-family: var(--font-serif, 'Cormorant Garamond', Georgia, serif);
+      font-size: 1.05rem;
+      color: var(--text-secondary, #7a6352);
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    .flora-menu-img-card {
+      position: relative;
+    }
+
+    .flora-menu-img-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .flora-menu-img-caption {
+      display: block;
+      font-family: var(--font-serif, 'Cormorant Garamond', Georgia, serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-secondary, #7a6352);
+      margin-top: 0.75rem;
+    }
+
+    .flora-menu-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 4.5rem;
+      row-gap: 3.5rem;
+      position: relative;
+      padding-bottom: 2rem;
+    }
+
+    .flora-category-italic {
+      font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+      font-style: italic;
+      font-size: 1.85rem;
+      font-weight: 400;
+      color: var(--text-primary, #2b221e);
+      margin-bottom: 1.5rem;
+    }
+
+    .flora-category-sub-italic {
+      font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+      font-style: italic;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--text-primary, #2b221e);
+      margin-top: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .flora-menu-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .flora-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.84rem;
+      letter-spacing: 0.05em;
+    }
+
+    .flora-item-name {
+      color: var(--text-primary, #2b221e);
+      text-transform: uppercase;
+    }
+
+    .flora-item-price {
+      color: var(--text-primary, #2b221e);
+      font-weight: 500;
+      margin-left: 1rem;
+      white-space: nowrap;
+    }
+
+    .flora-sub-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-secondary, #7a6352);
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      letter-spacing: 0.04em;
+    }
+
+    .flora-bottom-right-doodle {
+      position: absolute;
+      right: 0;
+      bottom: -15px;
+      pointer-events: none;
+    }
+
+    .drink-set-gif-img {
+      width: 140px;
+      height: auto;
+      display: block;
+      filter: grayscale(100%) contrast(1.4);
+      opacity: 0.9;
+    }
+
+    @media (max-width: 960px) {
+      .flora-menu-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .flora-menu-img-card img {
+        height: 280px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .flora-menu-right {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .flora-bottom-right-doodle {
+        position: static;
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  </style>
+</head>
+
+<body class="flora-theme paper-texture">
+
+  <!-- Page Transition & Loading Curtain -->
+  <div class="tulip-door-loader active" id="doorLoader" aria-hidden="true">
+    <div class="loader-white-curtain">
+      <div class="loader-emblem-wrap">
+        <div class="loader-emblem-glow" aria-hidden="true"></div>
+        <!-- 1. Lightened outline emblem -->
+        <img src="assest/hero3d/hero-emblem.png"
+          onerror="this.onerror=null; this.src='public/assest/hero3d/hero-emblem.png';"
+          alt="The Tulip Touch Logo Light"
+          class="loader-emblem-light" />
+        
+        <!-- 2. Full color emblem filling from center to outside in a circle -->
+        <img src="assest/hero3d/hero-emblem.png"
+          onerror="this.onerror=null; this.src='public/assest/hero3d/hero-emblem.png';"
+          alt="The Tulip Touch Logo Full Color"
+          class="loader-emblem-fill" id="loaderEmblemFill" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Icon-Only Back Button -->
+  <a href="interior.html" class="btn-return-interior" id="btnBackInterior" aria-label="Back to Salon">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+  </a>
+
+  <!-- Menu Layout Stage -->
+  <main class="menu-page-stage">
+    <div class="menu-page-container">
+      <div class="flora-menu-layout">
+
+        <!-- Left Column: Title & Vertical Food Image -->
+        <div class="flora-menu-left">
+          <h1 class="flora-menu-main-title">Explore Our Menu</h1>
+          <p class="flora-menu-main-sub">
+            Thoughtfully crafted coffee, ceremonial teas, artisan pastas, and seasonal specials made with intentional
+            ingredients that love you right back.
+          </p>
+          <div class="flora-menu-img-card">
+            <img src="assest/food/food 3.png"
+              onerror="this.onerror=null; this.src='public/assest/food/food 3.png';"
+              alt="Seasonal Specials Pasta" />
+            <span class="flora-menu-img-caption">Seasonal Specials</span>
+          </div>
+        </div>
+
+        <!-- Right Column: 2-Column Monospaced Menu Grid -->
+        <div class="flora-menu-right">
+
+          <!-- Category 1: Coffee -->
+          <div class="flora-menu-category-block">
+            <h2 class="flora-category-italic">Coffee</h2>
+            <div class="flora-menu-items">
+              <div class="flora-item">
+                <span class="flora-item-name">CLASSIC CAPPUCCINO</span>
+                <span class="flora-item-price">₹180</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">TULIP SIGNATURE LATTE</span>
+                <span class="flora-item-price">₹220</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">24-HOUR COLD BREW</span>
+                <span class="flora-item-price">₹200</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">DARK CHOCOLATE MOCHA</span>
+                <span class="flora-item-price">₹230</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">ICED ESPRESSO AMERICANO</span>
+                <span class="flora-item-price">₹170</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2: Tea & Specialty -->
+          <div class="flora-menu-category-block">
+            <h2 class="flora-category-italic">Tea &amp; Refreshers</h2>
+            <div class="flora-menu-items">
+              <div class="flora-item">
+                <span class="flora-item-name">ROSE CARDAMOM CHAI</span>
+                <span class="flora-item-price">₹150</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">PISTACHIO MATCHA LATTE</span>
+                <span class="flora-item-price">₹260</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">MANGO PASSION FRAPPE</span>
+                <span class="flora-item-price">₹240</span>
+              </div>
+            </div>
+
+            <h3 class="flora-category-sub-italic">Milk &amp; Add-ons</h3>
+            <p class="flora-sub-item">PISTACHIO MILK OR SPECIALTY OAT &amp; ALMOND &nbsp; <span>+₹50</span></p>
+            <p class="flora-sub-item">CARAMEL / VANILLA / HAZELNUT SYRUP &nbsp; <span>+₹40</span></p>
+          </div>
+
+          <!-- Category 3: Artisan Pastas -->
+          <div class="flora-menu-category-block">
+            <h2 class="flora-category-italic">Handcrafted Pasta</h2>
+            <div class="flora-menu-items">
+              <div class="flora-item">
+                <span class="flora-item-name">PESTO BASIL PASTA</span>
+                <span class="flora-item-price">₹340</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">ARRABBIATA SPICY TOMATO</span>
+                <span class="flora-item-price">₹300</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">ALFREDO CREAM MUSHROOM</span>
+                <span class="flora-item-price">₹360</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">TULIP SPECIAL PINK SAUCE</span>
+                <span class="flora-item-price">₹400</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 4: Sandwiches & Desserts -->
+          <div class="flora-menu-category-block">
+            <h2 class="flora-category-italic">Sandwiches &amp; Desserts</h2>
+            <div class="flora-menu-items">
+              <div class="flora-item">
+                <span class="flora-item-name">CHEF'S SPECIAL SHAKSHUKA</span>
+                <span class="flora-item-price">₹320</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">GRILLED PANEER MELT</span>
+                <span class="flora-item-price">₹300</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">PISTACHIO CREPE ROLLS</span>
+                <span class="flora-item-price">₹260</span>
+              </div>
+              <div class="flora-item">
+                <span class="flora-item-name">CHOCOLATE LAVA FONDANT</span>
+                <span class="flora-item-price">₹280</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Right Drink-Set.gif Animated Doodle -->
+          <div class="flora-bottom-right-doodle">
+            <img src="assest/gif/Drink-Set.gif"
+              onerror="this.onerror=null; this.src='public/assest/gif/Drink-Set.gif';"
+              alt="Drink Set GIF Doodle"
+              class="drink-set-gif-img" />
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function dismissSeatLoader() {
+      const loader = document.getElementById('doorLoader');
+      if (!loader) return;
+      loader.classList.remove('active', 'animating', 'pull-up', 'pull-up-enter');
+      loader.classList.add('dismissed');
+      loader.style.display = 'none';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const loader = document.getElementById('doorLoader');
+      const btnBack = document.getElementById('btnBackInterior');
+
+      const navEntry = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      const isBackForward = navEntry && navEntry.type === 'back_forward';
+
+      if (isBackForward) {
+        dismissSeatLoader();
+      } else if (loader && !loader.classList.contains('dismissed')) {
+        setTimeout(() => {
+          loader.classList.add('animating');
+        }, 100);
+
+        setTimeout(() => {
+          loader.classList.add('pull-up');
+          setTimeout(() => {
+            dismissSeatLoader();
+          }, 1000);
+        }, 1200);
+      }
+
+      // Return Transition Handler
+      if (btnBack && loader) {
+        btnBack.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetUrl = btnBack.getAttribute('href') || 'interior.html';
+
+          loader.style.display = 'flex';
+          loader.classList.remove('dismissed', 'pull-up', 'animating', 'active');
+          loader.classList.add('door-falling');
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              loader.classList.add('active');
+            });
+          });
+
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 850);
+        });
+      }
+    });
+
+    // BFCache / History Navigation Handler
+    window.addEventListener('pageshow', (event) => {
+      const navEntry = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      if (event.persisted || (navEntry && navEntry.type === 'back_forward')) {
+        dismissSeatLoader();
+      }
+    });
+
+    window.addEventListener('popstate', () => {
+      dismissSeatLoader();
+    });
+  </script>
+</body>
+
+</html>

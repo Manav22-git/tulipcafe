@@ -1489,6 +1489,9 @@ img {
   z-index: 2;
   pointer-events: none;
   display: block !important;
+  will-change: opacity, transform, mask-image, -webkit-mask-image;
+  -webkit-mask-image: radial-gradient(ellipse 92% 85% at 50% 75%, black 45%, transparent 100%);
+  mask-image: radial-gradient(ellipse 92% 85% at 50% 75%, black 45%, transparent 100%);
 }
 
 .se-fg-img {
@@ -1505,11 +1508,237 @@ img {
   filter: none !important;
   transition: none !important;
   display: block !important;
-  opacity: 1 !important;
 }
 
-.scroll-expand__scrim {
+/* ==========================================================================
+   Interactive Door Hotspot & Page Transition Loader Animation
+   ========================================================================== */
+
+/* Clickable Entrance Door Hotspot */
+.se-door-hotspot {
+  position: absolute;
+  left: 47.1%;
+  width: 8.7%;
+  top: 57.5%;
+  height: 38.3%;
+  z-index: 15;
+  cursor: pointer;
+  pointer-events: auto !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-decoration: none;
+  border-radius: 40px 40px 0 0;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.se-door-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 40px 40px 0 0;
+  background: radial-gradient(ellipse at center bottom, rgba(255, 235, 180, 0.45) 0%, rgba(255, 215, 120, 0.15) 50%, transparent 80%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.se-door-hotspot:hover .se-door-glow,
+.se-door-hotspot:focus .se-door-glow {
+  opacity: 1;
+}
+
+.se-door-tag {
+  position: absolute;
+  bottom: 12%;
+  background: rgba(28, 25, 23, 0.92);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+  pointer-events: none;
+  font-family: 'Inter', sans-serif;
+}
+
+.se-door-hotspot:hover .se-door-tag,
+.se-door-hotspot:focus .se-door-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Tulip Door Loader (Interactive Door Transition & Interior Reveal)
+   ========================================================================== */
+
+.tulip-door-loader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  display: none !important; /* Strictly hidden by default on starting hero page */
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  pointer-events: none;
+  box-shadow: 0 40px 120px rgba(35, 25, 20, 0.35);
+  will-change: transform;
+}
+
+/* When active or transitioning */
+.tulip-door-loader.active,
+.tulip-door-loader.door-falling,
+.tulip-door-loader.pull-up {
+  display: flex !important;
+  pointer-events: auto;
+}
+
+/* 1. Door Gate Click: White page falls from Top to Bottom */
+.tulip-door-loader.door-falling {
+  transform: translate3d(0, -100%, 0) !important;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tulip-door-loader.door-falling.active {
+  transform: translate3d(0, 0, 0) !important;
+}
+
+/* 2. Loading Ends / Page Reveal on Interior: Curtain pulls UP (Bottom to Top -> Exits off top) */
+.tulip-door-loader.pull-up {
+  transform: translate3d(0, -100%, 0) !important;
+  transition: transform 1.05s cubic-bezier(0.76, 0, 0.24, 1) !important;
+  pointer-events: none !important;
+}
+
+.tulip-door-loader.pull-up .loader-emblem-wrap {
+  transform: translateY(-45px);
+  opacity: 0;
+  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.6s ease;
+}
+
+/* 3. Dismissed / Hidden */
+.tulip-door-loader.dismissed {
   display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+.loader-white-curtain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+}
+
+.loader-emblem-wrap {
+  position: relative;
+  width: min(260px, 60vw);
+  height: min(260px, 60vw);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient Slow Glowing Aura behind Emblem */
+.loader-emblem-glow {
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(215, 165, 105, 0.42) 0%, rgba(200, 150, 95, 0.18) 42%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  filter: blur(16px);
+  transition: opacity 1.2s ease;
+}
+
+.tulip-door-loader.animating .loader-emblem-glow {
+  opacity: 1;
+  animation: logoAuraBlink 3s ease-in-out infinite alternate;
+}
+
+/* 1. Dull / Washed Out Base Logo at Start */
+.loader-emblem-light {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(1.3) contrast(0.45) opacity(0.22);
+  transform: scale(0.96);
+  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 2. Full Rich Darker Logo with Slow Glowing / Blinking Animation */
+.loader-emblem-fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  clip-path: circle(0% at 50% 50%);
+  -webkit-clip-path: circle(0% at 50% 50%);
+  filter: brightness(0.76) contrast(1.38) saturate(1.25) drop-shadow(0 16px 36px rgba(43, 34, 30, 0.32));
+  transform: scale(0.96);
+  transition: clip-path 1.6s cubic-bezier(0.22, 1, 0.36, 1), 
+              -webkit-clip-path 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tulip-door-loader.animating .loader-emblem-light {
+  transform: scale(1);
+}
+
+.tulip-door-loader.animating .loader-emblem-fill {
+  clip-path: circle(80% at 50% 50%);
+  -webkit-clip-path: circle(80% at 50% 50%);
+  animation: logoSlowGlow 3s ease-in-out 1.2s infinite alternate;
+}
+
+@keyframes logoSlowGlow {
+  0% {
+    filter: brightness(0.70) contrast(1.32) saturate(1.15) drop-shadow(0 0 10px rgba(180, 130, 80, 0.22)) drop-shadow(0 14px 32px rgba(43, 34, 30, 0.28));
+    transform: scale(0.97);
+    opacity: 0.82;
+  }
+  50% {
+    filter: brightness(0.92) contrast(1.48) saturate(1.38) drop-shadow(0 0 35px rgba(220, 170, 110, 0.8)) drop-shadow(0 0 70px rgba(255, 215, 140, 0.45)) drop-shadow(0 20px 45px rgba(43, 34, 30, 0.38));
+    transform: scale(1.025);
+    opacity: 1;
+  }
+  100% {
+    filter: brightness(0.70) contrast(1.32) saturate(1.15) drop-shadow(0 0 10px rgba(180, 130, 80, 0.22)) drop-shadow(0 14px 32px rgba(43, 34, 30, 0.28));
+    transform: scale(0.97);
+    opacity: 0.82;
+  }
+}
+
+@keyframes logoAuraBlink {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.18;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(0.85);
+    opacity: 0.18;
+  }
 }
 
 .scroll-expand__title,

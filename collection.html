@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>The Tulip Touch Café</title>
+
+  <!-- Preconnect & Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@400;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Instant Navigation Guard -->
+  <script>
+    (function() {
+      var isBack = false;
+      try {
+        var navEntries = performance.getEntriesByType('navigation');
+        if (navEntries && navEntries.length > 0 && navEntries[0].type === 'back_forward') {
+          isBack = true;
+        }
+      } catch(e) {}
+      if (isBack) {
+        document.documentElement.classList.add('tulip-loaded');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="style.css?v=45.0_icon_only_back" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden !important;
+      background: #ffffff !important;
+      color: #1a1614;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    /* Icon-Only Circular Back Button Top Left */
+    .btn-return-interior {
+      position: fixed;
+      top: 28px;
+      left: 28px;
+      z-index: 100;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #1a1614;
+      color: #ffffff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .btn-return-interior svg {
+      transition: transform 0.25s ease;
+    }
+
+    .btn-return-interior:hover {
+      background: #382e29;
+      transform: translateY(-2px) scale(1.06);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+    }
+
+    .btn-return-interior:hover svg {
+      transform: translateX(-2px);
+    }
+
+    /* Giant Centered Number Stage */
+    .number-stage {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .display-giant-number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(14rem, 38vw, 26rem);
+      font-weight: 700;
+      color: #1a1614;
+      line-height: 0.85;
+      letter-spacing: -0.05em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Page Transition & Loading Curtain -->
+  <div class="tulip-door-loader active" id="doorLoader" aria-hidden="true">
+    <div class="loader-white-curtain">
+      <div class="loader-emblem-wrap">
+        <div class="loader-emblem-glow" aria-hidden="true"></div>
+        <!-- 1. Lightened outline emblem -->
+        <img src="assest/hero3d/hero-emblem.png"
+          onerror="this.onerror=null; this.src='public/assest/hero3d/hero-emblem.png';"
+          alt="The Tulip Touch Logo Light"
+          class="loader-emblem-light" />
+        
+        <!-- 2. Full color emblem filling from center to outside in a circle -->
+        <img src="assest/hero3d/hero-emblem.png"
+          onerror="this.onerror=null; this.src='public/assest/hero3d/hero-emblem.png';"
+          alt="The Tulip Touch Logo Full Color"
+          class="loader-emblem-fill" id="loaderEmblemFill" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Icon-Only Back Button -->
+  <a href="interior.html" class="btn-return-interior" id="btnBackInterior" aria-label="Back">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+  </a>
+
+  <!-- Giant Number Only in Center -->
+  <main class="number-stage">
+    <div class="display-giant-number" id="frameNumber">1</div>
+  </main>
+
+  <script>
+    function dismissCollectionLoader() {
+      const loader = document.getElementById('doorLoader');
+      if (!loader) return;
+      loader.classList.remove('active', 'animating', 'pull-up', 'pull-up-enter');
+      loader.classList.add('dismissed');
+      loader.style.display = 'none';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const loader = document.getElementById('doorLoader');
+      const btnBack = document.getElementById('btnBackInterior');
+      const frameNumber = document.getElementById('frameNumber');
+
+      // Read query param (e.g. ?frame=1, ?frame=2, etc.)
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('frame') || '1';
+
+      if (frameNumber) {
+        frameNumber.textContent = id;
+      }
+
+      const navEntry = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      const isBackForward = navEntry && navEntry.type === 'back_forward';
+
+      if (isBackForward) {
+        dismissCollectionLoader();
+      } else if (loader && !loader.classList.contains('dismissed')) {
+        // Logo glow
+        setTimeout(() => {
+          loader.classList.add('animating');
+        }, 100);
+
+        // Curtain pulls UP to reveal the giant number
+        setTimeout(() => {
+          loader.classList.add('pull-up');
+          setTimeout(() => {
+            dismissCollectionLoader();
+          }, 1000);
+        }, 1200);
+      }
+
+      // Return Transition Handler
+      if (btnBack && loader) {
+        btnBack.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetUrl = btnBack.getAttribute('href') || 'interior.html';
+
+          loader.style.display = 'flex';
+          loader.classList.remove('dismissed', 'pull-up', 'animating', 'active');
+          loader.classList.add('door-falling');
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              loader.classList.add('active');
+            });
+          });
+
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 850);
+        });
+      }
+    });
+
+    // BFCache / History Navigation Handler
+    window.addEventListener('pageshow', (event) => {
+      const navEntry = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      if (event.persisted || (navEntry && navEntry.type === 'back_forward')) {
+        dismissCollectionLoader();
+      }
+    });
+
+    window.addEventListener('popstate', () => {
+      dismissCollectionLoader();
+    });
+  </script>
+</body>
+
+</html>
